@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-function UserWelcome() {
+function Welcome() {
 
     return (
         <div>Welcome</div>
@@ -9,4 +8,4 @@ function UserWelcome() {
     
 }
 
-export default UserWelcome
+export default Welcome
