@@ -1,12 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {getUserActionCreator} from '../actionCreators'
 
+function UserLogin(props) {
 
-function UserLogin() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        props.login(email, password)
+        setEmail("")
+        setPassword("")
+        props.history.push("/dashboard")
+    }
 
     return (
-        <div>Login</div>
+        <form onSubmit = {handleSubmit}>
+            <label>Email</label>
+            <input onChange={e => setEmail(e.target.value)} type="text" name="email" value={email} ></input>
+            <br />
+            <label>Password</label>
+            <input onChange={e => setPassword(e.target.value)} type="text" name="password" value={password} ></input>
+            <br />
+            <input type="submit" value="Login"></input>
+        </form>
     )
     
 }
 
-export default UserLogin
+const mdp = dispatch => {
+    return {
+        login: (email, password) => dispatch(getUserActionCreator(email, password))
+    }
+}
+
+export default  connect(null, mdp)(UserLogin)
