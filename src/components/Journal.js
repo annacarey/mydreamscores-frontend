@@ -1,78 +1,71 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Timer from 'react-compound-timer'
+import {addJournalEntryActionCreator} from '../actionCreators'
 import {connect} from 'react-redux';
 import styled from 'styled-components'
-import {timesUpActionCreator, updateCurrentJournalEntry} from '../actionCreators'
+import { withRouter } from "react-router-dom";
 
-class Journal extends React.Component {
+function Journal(props) {
 
-    state = {
-        journalEntry: ""
-    }
+    const [timer, setTimer] = useState(3000);
 
-    handleChange = (e) => {
-        const newEntry = e.target.value
-        this.setState(() => {return {journalEntry: newEntry}})
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        updateCurrentJournalEntry(e.target.elements[0].value)
+        const content = e.target.elements[0].value
+        props.addJournalEntry(content, props.zipcode, props.currentUser).then(() => {
+            props.currentUser.id ? props.history.push("/dashboard") : props.history.push("/sentiment")
+        })
     }
 
-    render() {
-        return (
-            
-            <div className="journal">
-                <div className="timer">
-                    <p>Time Remaining: </p>  
-                    <Timer 
-                    initialTime={4000}
-                    direction="backward"
-                    checkpoints={[
-                        {
-                            time: 0,
-                            callback: () => {
-                                this.props.setTimesUp()
-                            },
+    return (
+        <div className="journal">
+            <div className="timer">
+                <p>Time Remaining: </p>  
+                <Timer 
+                initialTime={timer}
+                direction="backward"
+                checkpoints={[
+                    {
+                        time: 0,
+                        callback: () => {
+                            setTimer(0)
                         },
-                    ]}>
-                    {() => (
-                        <React.Fragment>
-                            <Timer.Minutes /> minutes
-                            <Timer.Seconds /> seconds
-                        </React.Fragment>
-                    )}
-                    </Timer>
-                </div>
-                <h3>Write for two minutes about how you are feeling today?</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <textarea 
-                        rows={20}
-                        cols={100}
-                        onChange={this.handleChange}
-                        value={this.state.journalEntry}
-                        disabled={this.props.timesUp? true : false}
-                    />
-                    <br></br>
-                    {this.props.timesUp? <SubmitOn type="submit" disabled={false} value="Submit" /> : <SubmitOff type="submit" disabled={true} value="Submit" />}
-                </form>
+                    },
+                ]}>
+                {() => (
+                    <React.Fragment>
+                        <Timer.Minutes /> minutes
+                        <Timer.Seconds /> seconds
+                    </React.Fragment>
+                )}
+                </Timer>
             </div>
-        )
-    }
+            <h3>Write for two minutes about how you are feeling today?</h3>
+            <form onSubmit={handleSubmit}>
+                <textarea 
+                    rows={20}
+                    cols={100}
+                    disabled={timer===0}
+                />
+                <br></br>
+                {timer===0? <SubmitOn type="submit" disabled={false} value="View Sentiment Score" /> : <SubmitOff type="submit" disabled={true} value="View Sentiment Score" />}
+            </form>
+        </div>
+    )
+    
 }
 
 const msp = state => {
     return {
-        timesUp: state.journal.timesUp
+        currentUser: state.user.currentUser,
+        loading: state.journal.loading
     }
 }
 
 const mdp = dispatch => {
-  return {
-      setTimesUp: () => dispatch(timesUpActionCreator()),
-      setUpdateJournalEntry: (content) => dispatch(updateCurrentJournalEntry(content))
-  }
+    return {
+        addJournalEntry: (content, zipcode, user) => dispatch(addJournalEntryActionCreator(content, zipcode, user))
+    }
 }
 
 const SubmitOff = styled.input`
@@ -88,4 +81,4 @@ const SubmitOn = styled.input`
     color: "black"
 `
 
-export default connect(msp, mdp)(Journal)
+export default withRouter(connect(msp, mdp)(Journal))

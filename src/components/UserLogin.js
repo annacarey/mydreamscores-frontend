@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
+import { withRouter } from "react-router-dom";
 import {getUserActionCreator} from '../actionCreators'
 
 function UserLogin(props) {
@@ -9,10 +10,7 @@ function UserLogin(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        props.login(email, password)
-        setEmail("")
-        setPassword("")
-        props.history.push("/dashboard")
+        props.login(email, password).then(() => props.history.push("/dashboard"))
     }
 
     return (
@@ -35,4 +33,4 @@ const mdp = dispatch => {
     }
 }
 
-export default  connect(null, mdp)(UserLogin)
+export default  withRouter(connect(null, mdp)(UserLogin))

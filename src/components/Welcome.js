@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
-import {setZipcodeActionCreator} from '../actionCreators'
+import React, {useState} from 'react'
+import {Link} from 'react-router-dom'
 
 function Welcome(props) {
 
@@ -22,14 +21,9 @@ function Welcome(props) {
                 What is your zipcode? <input onChange={e => setZipcode(e.target.value)} type="text" />
                 <input type="submit" />
             </form>
+            <p>Been here before? Log in to your account <Link to="/login">here</Link>.</p>
         </div>
     )
 }
 
-const mdp = dispatch => {
-    return {
-        setZipcode: (zipcode) => dispatch(setZipcodeActionCreator(zipcode))
-    }
-}
-
-export default connect(null, mdp)(Welcome)
+export default Welcome

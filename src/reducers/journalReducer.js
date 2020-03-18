@@ -1,21 +1,29 @@
 
 const initialState = {
-    timesUp: false,
-    currentJournalEntry: "",
-    journalEntries: [],
-    survey: "",
-    questions: []
+    loading: false,
+    error: null,
+    currentJournalEntry: {
+        id: "",
+        content: "",
+        zipcode: "",
+        sentiment: 0,
+        magnitude: 0
+    },
+    allJournalEntries: []
 }
 
 function journalReducer(state = initialState, action) {
     switch(action.type) {
-        case 'TIMES_UP': 
-            return {...state, timesUp: true}
-        case 'UPDATE_CURRENT_JOURNAL_ENTRY':
-            return {...state, currentJournalEntry: action.payload}
+        case 'ADD_JOURNAL_ENTRY_STARTED':
+            return {...state, loading: true }
+        case 'ADD_JOURNAL_ENTRY': 
+            return {...state, currentJournalEntry: action.payload.journalEntry}
+        case 'UPDATE_JOURNAL_ENTRY':
+            return {...state, currentJournalEntry: action.payload.journalEntry}
         default:
             return state
     }
 }
 
 export default journalReducer
+
