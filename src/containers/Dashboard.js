@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Graph from '../components/Graph.js'
+import Graph from '../components/Graph'
+import SentimentGraph from '../components/SentimentGraph'
 import styled from 'styled-components'
 
 class Dashboard extends React.Component {
@@ -18,24 +19,27 @@ class Dashboard extends React.Component {
             this.setState({allJournalEntries})
         })
 
-        fetch(`http://localhost:3000/users/${this.props.currentUser.id}/journal-entries`)
-        .then((res) => res.json())
-        .then((myJournalEntries) => {
-          
-            this.setState({myJournalEntries})
-        })
-
+        if (this.props.currentUser.id !== "") {
+            fetch(`http://localhost:3000/users/${this.props.currentUser.id}/journal-entries`)
+            .then((res) => res.json())
+            .then((myJournalEntries) => { 
+                this.setState({myJournalEntries})
+            })
+        }   
     }
+
 
     render() { 
         return (    
             <div>
-                <h1>Welcome to CoronavirusNow!</h1>
+                <ButtonWrapper>
+                    {this.props.currentUser.id !== "" && <Button>My Sentiment Data</Button>}
+                    <Button>Global Sentiment Data</Button>
+                    <Button>Coronavirus Stats</Button>
+                </ButtonWrapper>
+
                 <Wrapper>
-                    <SentimentScore>{this.props.currentJournalEntry.sentiment}</SentimentScore>
-                    <Graph myJournalEntries={this.state.myJournalEntries}>text</Graph>
-                    <Graph2>text</Graph2>
-                    <Settings>text</Settings>
+                    <Graph allJournalEntries={this.state.allJournalEntries} myJournalEntries={this.state.myJournalEntries}>text</Graph>
                 </Wrapper>
             </div>
         )
@@ -50,26 +54,37 @@ const msp = state => {
 }
 
 const Wrapper = styled.section`
+
+    margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly
 `
 
-const SentimentScore = styled.section`
-    font-size: 100px;
-    width: 50vw;
-    height: 50vw;
+const ButtonWrapper = styled.section`
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center
+`
+const Button = styled.button`
+    border-radius: 4px;
+    background-color: #4F3E4D;
+    color: white;
+    padding: 10px;
+    margin: 2px;
+    &:hover {
+        background-color: white;
+        color: #4F3E4D;
+    }
 `
 
-const Graph2 = styled.section`
-    background-color: purple;
-    width: 50vw;
-    height: 50vw;
-`
-
-const Settings = styled.section`
-    background-color: blue;
-    width: 50vw;
-    height: 50vw;
-`
 export default connect(msp)(Dashboard)
+
+
+//Things for NavBar
+//Logout
+//Redo journal
+//Toggles
+
+// color palette: https://coolors.co/88498f-4d9ca0-ede9e3-ff6542-4f3e4d

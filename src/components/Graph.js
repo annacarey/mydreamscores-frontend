@@ -1,25 +1,68 @@
 import React from 'react';
 import styled from 'styled-components'
 import moment from 'moment'
-import { LineChart, Line, XAxis, YAxis } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Legend, Tooltip } from 'recharts';
+import _ from 'lodash';
 
 function Graph(props) {
 
-    const journalEntryData = []
-    props.myJournalEntries.map(journalEntry => {
-        const dataObject = {sentiment: journalEntry.sentiment, time: Date.parse(journalEntry.created_at)}
-        journalEntryData.push(dataObject)
-    }).sort((journalEntry1, journalEntry2) => journalEntry1.time - journalEntry2.time)
+    const myJournalEntryData = []
+    props.myJournalEntries.forEach(journalEntry => {
+        const dataObject = {mySentiment: journalEntry.sentiment, time: Date.parse(journalEntry.created_at), formatted_time: moment(Date.parse(journalEntry.created_at)).format('M/D/YY') }
+        myJournalEntryData.push(dataObject)
+    })
 
-    console.log(journalEntryData)
+    // Accumulate the sentiments that were on the same day into an array of sentiments per date
+    const allJournalEntryData = []
+    props.allJournalEntries.forEach(journalEntry => {
+        if (allJournalEntryData.some(journalEntryDataObject => {
+            return journalEntryDataObject.time && journalEntryDataObject.formatted_time === moment(Date.parse(journalEntry.created_at)).format('M/D/YY')
+        })) {
+            const journalEntryDataObject = allJournalEntryData.find(journalEntryData => journalEntryData.formatted_time && journalEntryData.formatted_time === moment(Date.parse(journalEntry.created_at)).format('M/D/YY'))
+            journalEntryDataObject.allSentiment.push(journalEntry.sentiment)
+        } else {
+            const dataObject = {allSentiment: [journalEntry.sentiment], time: Date.parse(journalEntry.created_at), formatted_time: moment(Date.parse(journalEntry.created_at)).format('M/D/YY') }
+            allJournalEntryData.push(dataObject)
+        }
+    })
+
+    // reduce the sentiment array for each date into an average
+    const reducedAllJournalEntryData = allJournalEntryData.map(journalEntry => {
+        journalEntry.allSentiment = journalEntry.allSentiment.reduce((a, b) => (a + b)) / journalEntry.allSentiment.length
+        return journalEntry
+    })
+
+    const data = myJournalEntryData.concat(reducedAllJournalEntryData)
+
+    
+    const result = _(data)
+    .groupBy('formatted_time')
+    .map(_.spread(_.assign))
+    .value()
+    
+    // add in null for missing data
+    const parsedResult = result.map(journalEntryDataObject => {
+        if (!journalEntryDataObject.mySentiment) {
+            journalEntryDataObject.mySentiment = null
+        }
+        return journalEntryDataObject
+    })
+
+    console.log(parsedResult)
+
+    const allData = parsedResult.sort((journalEntry1, journalEntry2) => journalEntry2.time - journalEntry1.time)
+
     return (
         <Wrapper>
             <LineChart 
                 width={500} 
                 height={350} 
                 margin={{bottom: 35, right: 10}}
-                data={journalEntryData}>
-                <Line type="monotone" dataKey="sentiment" stroke="#8884d8" />
+                data={allData}>
+                <Tooltip />
+                <Legend verticalAlign="top" height={36}/>
+                <Line type="monotone" dataKey="mySentiment" stroke="#88498F" />
+                <Line type="monotone" dataKey="allSentiment" stroke="#4D9CA0" />
                 <XAxis
                     dataKey="time"
                     name = 'Time'
@@ -29,7 +72,7 @@ function Graph(props) {
                     interval={0}
                     tickFormatter = {(unixTime) => moment(unixTime).format('M/D/YY')}
                     minTickGap = {0}
-                    tickCount = {journalEntryData.length}
+                    tickCount = {allData.length}
                     domain ={['dataMin', 'dataMax']}/>
                 <YAxis name='Sentiment' />
             </LineChart>
@@ -39,9 +82,12 @@ function Graph(props) {
 
 const Wrapper = styled.section`
     display: flex;
-    width: 50vw;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
     height: 50vw;
     outline: 1px solid green;
+    padding-top: 50px;
 `
 export default Graph
 
