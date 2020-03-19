@@ -5,7 +5,7 @@ import Dashboard from './Dashboard'
 import Welcome from '../components/Welcome'
 import Journal from '../components/Journal'
 import SentimentView from '../components/SentimentView'
-import Graph from '../components/Graph'
+import SentimentGraph from '../components/SentimentGraph'
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 class UserContainer extends React.Component {
@@ -27,7 +27,6 @@ class UserContainer extends React.Component {
                     <Route exact path = '/dashboard' render={ () =><Dashboard /> }  />
                     <Route exact path='/journal' render={() => <Journal zipcode={this.state.zipcode}/>} />
                     <Route exact path = '/sentiment' render={ () =><SentimentView zipcode={this.state.zipcode} /> }  />
-                    <Route exact path = '/graph' render={ () =><Graph /> }  />
                     <SurveyContainer />
                 </Switch>
             </div>
