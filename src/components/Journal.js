@@ -18,9 +18,10 @@ function Journal(props) {
     }
 
     return (
-        <div className="journal">
+        <Wrapper>
             <div className="timer">
-                <p>Time Remaining: </p>  
+                Time Remaining:
+                <br></br>
                 <Timer 
                 initialTime={timer}
                 direction="backward"
@@ -34,23 +35,22 @@ function Journal(props) {
                 ]}>
                 {() => (
                     <React.Fragment>
-                        <Timer.Minutes /> minutes
-                        <Timer.Seconds /> seconds
+                        <Timer.Minutes /> :   
+                        <Timer.Seconds /> 
                     </React.Fragment>
                 )}
                 </Timer>
             </div>
-            <h3>Write for two minutes about how you are feeling today?</h3>
+            <h3>Write for two minutes about how you're feeling today...</h3>
             <form onSubmit={handleSubmit}>
-                <textarea 
+                <TextArea 
                     rows={20}
-                    cols={100}
                     disabled={timer===0}
                 />
                 <br></br>
-                {timer===0? <SubmitOn type="submit" disabled={false} value="View Sentiment Score" /> : <SubmitOff type="submit" disabled={true} value="View Sentiment Score" />}
+                {timer===0? <SubmitOn type="submit" className ='btn' disabled={false} value="View Sentiment Score" /> : <SubmitOff type="submit" className='btn' disabled={true} value="View Sentiment Score" />}
             </form>
-        </div>
+        </Wrapper>
     )
     
 }
@@ -69,16 +69,31 @@ const mdp = dispatch => {
 }
 
 const SubmitOff = styled.input`
-        pointer-events: none;
-        cursor: wait;
-        background: #D3D3D3;
-        color: #A9A9A9
+    pointer-events: none;
+    cursor: wait;
+    background: #D3D3D3;
+    color: #A9A9A9
+    border-radius: 5px;
     `
 const SubmitOn = styled.input`
     pointer-events: auto;
     cursor: pointer;
     background: "white";
     color: "black"
+    border-radius: 5px;
+`
+
+const Wrapper = styled.section`
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+`
+
+const TextArea = styled.textarea`
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 20px;
+    width: 80%
 `
 
 export default withRouter(connect(msp, mdp)(Journal))
