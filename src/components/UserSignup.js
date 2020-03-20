@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {signupUserActionCreator, updateJournalEntryRequest} from '../actionCreators'
 import { withRouter } from "react-router-dom";
+import styled from 'styled-components'
+
 
 class UserSignup extends React.Component {
 
@@ -21,18 +23,33 @@ class UserSignup extends React.Component {
 
     render() {
         return (
-            <form onSubmit = {this.handleSubmit}>
-                <label>Email </label>
-                <input onChange={e => this.setState({email: e.target.value})} type="text" name="email" value={this.state.email} ></input>
-                <br />
-                <label>Phone Number </label>
-                <input onChange={e => this.setState({phoneNumber: e.target.value})} type="text" name="password" value={this.state.phoneNumber} ></input>
-                <br />
-                <label>Password </label>
-                <input onChange={e => this.setState({password: e.target.value})} type="text" name="password" value={this.state.password} ></input>
-                <br />
-                <input type="submit" value="Sign Up"></input>
-            </form>
+            <Form onSubmit = {this.handleSubmit}>
+                <FormRow>
+                    <ColumnHalf>
+                        <label>Email: </label>
+                        <br />
+                        <input onChange={e => this.setState({email: e.target.value})} placeholder="hello@gmail.com" type="text" name="email" value={this.state.email} ></input>
+                    </ColumnHalf>
+                    <ColumnHalf>
+                        <label>Phone Number: </label>
+                        <br />
+                        <input onChange={e => this.setState({phoneNumber: e.target.value})} type="text" name="password" value={this.state.phoneNumber} ></input>
+                    </ColumnHalf>
+                </FormRow>
+                <FormRow>
+                    <ColumnHalf>
+                        <label>Password: </label>
+                        <br />
+                        <input onChange={e => this.setState({password: e.target.value})} type="text" name="password" value={this.state.password} ></input>
+                    </ColumnHalf>
+                    <ColumnHalf>
+                        <label>Password Confirmation: </label>
+                        <br />
+                        <input onChange={e => this.setState({password: e.target.value})} type="text" name="password" value={this.state.password} ></input>
+                    </ColumnHalf>
+                </FormRow>
+                <input className='btn' type="submit" value="Sign Up"></input>
+            </Form>
         )
     }
 }
@@ -54,3 +71,20 @@ const mdp = dispatch => {
 }
 
 export default  withRouter(connect(msp, mdp)(UserSignup))
+
+const Form = styled.form`
+	margin:0 auto;
+    width:100%;
+`
+const FormRow = styled.section`
+    width: 100%;
+`
+
+const ColumnHalf = styled.section`
+    float: left;
+	position: relative;
+	width:50%;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+`
