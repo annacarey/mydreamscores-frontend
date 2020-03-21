@@ -69,13 +69,13 @@ const ButtonWrapper = styled.section`
 `
 const Button = styled.button`
     border-radius: 4px;
-    background-color: #4F3E4D;
-    color: white;
+    background-color: white;
+    color: black;
     padding: 10px;
     margin: 2px;
     &:hover {
-        background-color: white;
-        color: #4F3E4D;
+        background-color: black;
+        color: white;
     }
 `
 

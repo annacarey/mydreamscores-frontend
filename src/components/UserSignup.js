@@ -28,7 +28,7 @@ class UserSignup extends React.Component {
                     <ColumnHalf>
                         <label>Email: </label>
                         <br />
-                        <input onChange={e => this.setState({email: e.target.value})} placeholder="hello@gmail.com" type="text" name="email" value={this.state.email} ></input>
+                        <input onChange={e => this.setState({email: e.target.value})} type="text" name="email" value={this.state.email} ></input>
                     </ColumnHalf>
                     <ColumnHalf>
                         <label>Phone Number: </label>
@@ -74,7 +74,9 @@ export default  withRouter(connect(msp, mdp)(UserSignup))
 
 const Form = styled.form`
 	margin:0 auto;
-    width:100%;
+    width: 60%;
+    margin-left: 0;
+    align-self: flex-start;
 `
 const FormRow = styled.section`
     width: 100%;

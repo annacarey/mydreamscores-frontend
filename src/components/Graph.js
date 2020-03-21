@@ -34,7 +34,7 @@ function Graph(props) {
 
     const data = myJournalEntryData.concat(reducedAllJournalEntryData)
 
-    
+     
     const result = _(data)
     .groupBy('formatted_time')
     .map(_.spread(_.assign))
@@ -51,6 +51,7 @@ function Graph(props) {
     console.log(parsedResult)
 
     const allData = parsedResult.sort((journalEntry1, journalEntry2) => journalEntry2.time - journalEntry1.time)
+    console.log(allData)
 
     return (
         <Wrapper>

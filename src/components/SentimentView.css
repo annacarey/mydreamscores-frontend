@@ -1,0 +1,13 @@
+.Slider {
+    color: black;
+    background-color: blue;
+  }
+.Slider.Mui-disabled { /* Increase the specificity */
+    color: black;
+    background-color: green;
+    height: 5px;
+}
+
+.Slider.MuiSlider-thumb.Mui-disabled{
+    color: blue;
+}
