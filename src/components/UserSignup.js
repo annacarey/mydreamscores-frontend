@@ -4,13 +4,15 @@ import {signupUserActionCreator, updateJournalEntryRequest} from '../actionCreat
 import { withRouter } from "react-router-dom";
 import styled from 'styled-components'
 
-
 class UserSignup extends React.Component {
 
     state = {
         email: "",
         phoneNumber: "",
         password: "",
+        passwordConfirmation: "",
+        okToContact: false,
+        okToSaveEntries: false,
         zipcode: this.props.zipcode
     }
 
@@ -22,33 +24,21 @@ class UserSignup extends React.Component {
     }
 
     render() {
+
         return (
-            <Form onSubmit = {this.handleSubmit}>
-                <FormRow>
-                    <ColumnHalf>
-                        <label>Email: </label>
-                        <br />
-                        <input onChange={e => this.setState({email: e.target.value})} type="text" name="email" value={this.state.email} ></input>
-                    </ColumnHalf>
-                    <ColumnHalf>
-                        <label>Phone Number: </label>
-                        <br />
-                        <input onChange={e => this.setState({phoneNumber: e.target.value})} type="text" name="password" value={this.state.phoneNumber} ></input>
-                    </ColumnHalf>
-                </FormRow>
-                <FormRow>
-                    <ColumnHalf>
-                        <label>Password: </label>
-                        <br />
-                        <input onChange={e => this.setState({password: e.target.value})} type="text" name="password" value={this.state.password} ></input>
-                    </ColumnHalf>
-                    <ColumnHalf>
-                        <label>Password Confirmation: </label>
-                        <br />
-                        <input onChange={e => this.setState({password: e.target.value})} type="text" name="password" value={this.state.password} ></input>
-                    </ColumnHalf>
-                </FormRow>
-                <input className='btn' type="submit" value="Sign Up"></input>
+            <Form autocomplete = "off" onSubmit = {this.handleSubmit}>
+                <input autocomplete="false" name="hidden" type="text" style={{display: "none"}}/>
+                <Input autocomplete="off" placeholder="Email..." onChange={e => this.setState({email: e.target.value})} type="text" name="email" value={this.state.email} />
+                <Input autocomplete="off" placeholder="Phone Number..." onChange={e => this.setState({phoneNumber: e.target.value})} type="text"  value={this.state.phoneNumber} />
+                <Input autocomplete="off" placeholder="Password..." onChange={e => this.setState({password: e.target.value})} type="password" name="password" value={this.state.password} />
+                <Input autocomplete="off" placeholder="Confirm Password..." onChange={e => this.setState({passwordConfirmation: e.target.value})} type="password" name="password" value={this.state.passwordConfirmation} />
+                <Checkbox>
+                    <label><input onChange={e => this.setState({okToContact: e.target.checked})} type="checkbox" id="contactOptIn"></input>Opt in to receive SMS and email reminders.</label>
+                </Checkbox>
+                <Checkbox>
+                    <label><input onChange={e => this.setState({okToSaveEntries: e.target.checked})} type="checkbox" id="JournalOptIn"></input>Save my journal entries for me.</label>
+                </Checkbox>
+                <Signup type="submit" value="Sign Up"></Signup>
             </Form>
         )
     }
@@ -72,21 +62,37 @@ const mdp = dispatch => {
 
 export default  withRouter(connect(msp, mdp)(UserSignup))
 
-const Form = styled.form`
-	margin:0 auto;
-    width: 60%;
-    margin-left: 0;
-    align-self: flex-start;
-`
-const FormRow = styled.section`
-    width: 100%;
+const Input = styled.input`
+    width: 40%;
+    padding: 10px;
+    border-radius: 10px;
+    border-style: none;
+    font-size: 16px;
+    margin: 10px 10px 10px 0px;
+    &:focus {
+        outline: none;
+    }
 `
 
-const ColumnHalf = styled.section`
-    float: left;
-	position: relative;
-	width:50%;
-	-webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box
+const Signup = styled.input`
+    width: 30%;
+    padding: 10px;
+    border-radius: 10px;
+    border-style: none;
+    font-size: 16px;
+    margin: 10px 10px 10px 0px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+`
+const Form = styled.form`
+    margin-top: 40px;
+    width: 100%;
+`
+const Checkbox = styled.div`
+    width: 100%;
+    padding: 10px 10px 10px 0px;
 `
