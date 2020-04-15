@@ -94,7 +94,7 @@ class Dashboard extends React.Component {
             <Wrapper>
                 <CardWrapper>
                     <ButtonWrapper>
-                        <JournalButton onClick={() => this.props.history.push("/journal")}><strong>Go To Daily Journal</strong></JournalButton>
+                        <JournalButton onClick={() => this.props.history.push("/journal", { return: true })}><strong>Go To Daily Journal</strong></JournalButton>
                         <LogoutButton onClick={() => this.props.history.push("/")}><strong>Logout</strong></LogoutButton>
                     </ButtonWrapper>
                     <Header><strong>Your Sentiment Dashboard</strong></Header>
