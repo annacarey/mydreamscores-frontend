@@ -1,8 +1,3 @@
-// import { createBrowserHistory } from 'history';
-
-// export const history = createBrowserHistory();
-import { browserHistory } from 'react-router'
-import history from './helpers/history'
 
 // Log in user
 const getUserActionCreator = (email, password) => dispatch => {
@@ -86,7 +81,8 @@ const logoutUser = () => {
     type: 'LOGOUT_USER'})
 }
 
-const addJournalEntryActionCreator = (content, zipcode, user) => (dispatch) => {
+const addJournalEntryActionCreator = (content, zipcode, user) => dispatch => {
+    
     dispatch(addJournalEntryStarted())
     return fetch('http://localhost:3000/journal-entries', {
         method: "POST",
