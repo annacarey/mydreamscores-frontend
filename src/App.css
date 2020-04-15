@@ -1,16 +1,30 @@
-body {
-  font-family: 'Barlow', sans-serif;
-  font-size: 20px;
+@font-face {
+  font-family: 'Metropolis';
+  src: url('./fonts/metropolis-bold-webfont.woff2') format('woff2'),
+       url('./fonts/metropolis-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 
-  'Montserrat', sans-serif;
+@font-face {
+  font-family: 'Metropolis';
+  src: url('./fonts/metropolis-regular-webfont.woff2') format('woff2'),
+       url('./fonts/metropolis-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Metropolis', sans-serif;
+  font-size: 20px;
 }
 
 button {
   border-radius: 5px;
-  font-size: 20px
+  font-size: 20px;
+  background-color: black;
+  color: white;
 }
 
 input {
@@ -19,7 +33,7 @@ input {
 
 .btn {
   border-radius: 5px;
-  padding: 6px;
+  padding: 15px 18px 18px 20px;
   margin: 3px;
   font-size: 20px
 }

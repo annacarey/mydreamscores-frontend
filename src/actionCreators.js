@@ -1,5 +1,12 @@
+// import { createBrowserHistory } from 'history';
+
+// export const history = createBrowserHistory();
+import { browserHistory } from 'react-router'
+import history from './helpers/history'
+
 // Log in user
 const getUserActionCreator = (email, password) => dispatch => {
+    
     dispatch(getUserStarted())
 
     return fetch('http://localhost:3000/login', {
@@ -7,29 +14,35 @@ const getUserActionCreator = (email, password) => dispatch => {
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
         body: JSON.stringify({ user:
-            {email: email, password_digest: password}
+            {email: email, password: password}
         })
     }).then((response) => response.json())
-      .then((user) => {
-        user.error? dispatch(getUserFailed(user.error)) : dispatch(getUserSuccess(user))
-      })
+      .then((user => {
+        return user
+    }))
+    .then(user =>{  
+        if (user.error) {
+            dispatch(getUserFailed(user.error))
+            return user
+        } else {
+            dispatch(getUserSuccess(user))
+            return user
+    }})
 }
 
-const getUserStarted = () => ({
+const getUserStarted = () => {return {
     type: 'GET_USER_STARTED'
-})
+}}
 
-const getUserSuccess = (user) => {
-    return ({
-        type: 'GET_USER_SUCCESS', 
-        payload: {user}
-    })
-}
+const getUserSuccess = (user) => {return {
+    type: 'GET_USER_SUCCESS', 
+    payload: {user}
+}}
 
-const getUserFailed = (errors) => ({
+const getUserFailed = (error) => {return {
     type: 'GET_USER_FAILED',
-    payload: {errors}
-})
+    payload: {error}
+}}
 
 // Sign up user
 const signupUserActionCreator = (userInfo) => dispatch => {
@@ -44,6 +57,7 @@ const signupUserActionCreator = (userInfo) => dispatch => {
         })
     }).then((response) => response.json())
       .then((user) => {
+            console.log("in signup fetch", user)
             user.error? dispatch(signupUserFailed(user.error)) : dispatch(signupUserSuccess(user))
             return user
       })
@@ -64,6 +78,13 @@ const signupUserFailed = (errors) => ({
     type: 'SIGNUP_USER_FAILED',
     payload: {errors}
 })
+
+const logoutUser = () => {
+    localStorage.removeItem('user');
+    return ({
+    
+    type: 'LOGOUT_USER'})
+}
 
 const addJournalEntryActionCreator = (content, zipcode, user) => (dispatch) => {
     dispatch(addJournalEntryStarted())
@@ -106,4 +127,4 @@ const updateJournalEntry = (journalEntry) => ({
     payload: {journalEntry}
 })
 
-export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, updateJournalEntryRequest}
+export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, updateJournalEntryRequest , logoutUser}

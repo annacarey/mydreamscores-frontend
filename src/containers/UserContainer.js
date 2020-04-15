@@ -23,7 +23,7 @@ class UserContainer extends React.Component {
                 <Switch>
                     <Route exact path ="/" render={ (props) => <Welcome {...props} setZipcode={this.setZipcode}/> } /> 
                     <Route exact path='/login' render={ () =><UserLogin /> } />
-                    <Route exact path = '/dashboard' render={ () =><Dashboard /> }  />
+                    <Route exact path = '/dashboard' render={ () =><Dashboard zipcode={this.state.zipcode} /> }  />
                     <Route exact path='/journal' render={() => <Journal zipcode={this.state.zipcode}/>} />
                     <Route exact path = '/sentiment' render={ () =><SentimentView zipcode={this.state.zipcode} /> }  />
                 </Switch>
@@ -35,6 +35,6 @@ class UserContainer extends React.Component {
 export default UserContainer
 
 const Wrapper = styled.section`
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 `

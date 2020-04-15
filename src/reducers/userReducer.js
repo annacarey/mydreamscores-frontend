@@ -7,7 +7,9 @@ const initialState = {
         email: "",
         password: "",
         zipcode: "",
-        phoneNumber: ""
+        phoneNumber: "",
+        okToContact: false,
+        okToSaveEntries: false
     }
 }
 
@@ -19,13 +21,15 @@ function userReducer(state = initialState, action) {
         case 'GET_USER_SUCCESS':
             return {...state, loading: false, error: null, currentUser: action.payload.user}
         case 'GET_USER_FAILED':
-            return {...state, loading: false, error: action.payload }
+            return {...state, loading: false, error: action.payload.error }
         case 'SIGNUP_USER_STARTED':
             return {...state, loading: true }
         case 'SIGNUP_USER_SUCCESS':
             return {...state, loading: false, error: null, currentUser: action.payload.user}
         case 'SIGNUP_USER_FAILED':
-            return {...state, loading: false, error: action.payload }
+            return {...state, loading: false, error: action.payload.error }
+        case 'LOGOUT_USER':
+            return {...state, currentUser: initialState.currentUser}
         default:
             return state
     }
