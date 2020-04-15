@@ -23,7 +23,7 @@ class UserContainer extends React.Component {
                 <Switch>
                     <Route exact path ="/" render={ (props) => <Welcome {...props} setZipcode={this.setZipcode}/> } /> 
                     <Route exact path='/login' render={ () =><UserLogin /> } />
-                    <Route exact path = '/dashboard' render={ () =><Dashboard zipcode={this.state.zipcode} /> }  />
+                    <Route exact path = '/dashboard' render={ (props) =><Dashboard {...props} zipcode={this.state.zipcode} /> }  />
                     <Route exact path='/journal' render={() => <Journal zipcode={this.state.zipcode}/>} />
                     <Route exact path = '/sentiment' render={ (props) =><SentimentView {...props} zipcode={this.state.zipcode} /> }  />
                 </Switch>

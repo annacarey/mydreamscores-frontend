@@ -69,10 +69,12 @@ class Dashboard extends React.Component {
     }
 
     render() { 
+        console.log(this.state)
         // Check to make sure user has journal entries loaded
         const myJournalEntriesLoaded = this.state.myJournalEntries.length !== 0
 
         //My Data
+        // const lastJournalEntrySentiment = this.props.location.state? this.props.location.state.sentiment : "N/A"
         const lastJournalEntrySentiment = myJournalEntriesLoaded? this.state.myJournalEntries.slice(-1)[0].sentiment.toFixed(5) : this.props.currentJournalEntry.sentiment.toFixed(5)
         const myWeeklyJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.state.myJournalEntries, "weekly") : "N/A"
         const myAllTimeJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.state.myJournalEntries, "all time"): "N/A"

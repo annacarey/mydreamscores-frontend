@@ -61,11 +61,13 @@ function SentimentView(props) {
 
     
  const classes = useStyles();
+ 
+ const sentiment = props.currentJournalEntry.sentiment
 
     return (
         <Wrapper>
             <Top>
-                <Header><strong>Your Sentiment Score is <Num>{props.currentJournalEntry.sentiment.toFixed(5)}</Num> with magnitude of <Num>{props.currentJournalEntry.magnitude.toFixed(5)}</Num>.</strong></Header>
+                <Header><strong>Your Sentiment Score is <Num>{sentiment.toFixed(5)}</Num> with magnitude of <Num>{props.currentJournalEntry.magnitude.toFixed(5)}</Num>.</strong></Header>
                 <br></br>
                 <div style={{width: "600px"}}>
                     <Slider disabled
@@ -84,7 +86,7 @@ function SentimentView(props) {
                         marks = {marks}
                         min={-1}
                         max={1}
-                        defaultValue= {Number(props.currentJournalEntry.sentiment.toFixed(5))}
+                        defaultValue= {Number(sentiment.toFixed(5))}
                         valueLabelDisplay="on"
                     ></Slider>
                 </div>
@@ -93,10 +95,10 @@ function SentimentView(props) {
             <Bottom>
                 <BottomContentWrapper>
                     <Para>For more info on the sentiment analysis, go to  <a href="https://cloud.google.com/natural-language">Google's Cloud Natural Language API.</a> </Para>
-                    {props.location.state.return? <DashboardButton onClick={() => props.history.push("/dashboard")}>Continue to Dashboard</DashboardButton> : null}
+                    {props.location.state.return? <DashboardButton onClick={() => props.history.push("/dashboard", {sentiment})}>Continue to Dashboard</DashboardButton> : null}
                     <SignUpBlock display={!props.location.state.return}>
                         <Para>Our tool is most helpful when you can track your sentiment over time.<br/>To return and journal again, sign up for an account below:</Para>
-                        <UserSignup zipcode={props.zipcode}/>
+                        <UserSignup sentiment={sentiment} zipcode={props.zipcode}/>
                         <br/>
                         <Link to="/dashboard">Skip for now and view triends >></Link>
                     </SignUpBlock>

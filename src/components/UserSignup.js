@@ -20,7 +20,7 @@ class UserSignup extends React.Component {
         e.preventDefault()
         this.props.signup(this.state)
         .then(user => this.props.updateJournalEntry(user.id, this.props.currentJournalEntry.id))
-        .then(() => this.props.history.push("/dashboard"))
+        .then(() => this.props.history.push("/dashboard", {sentiment: this.props.sentiment}))
     }
 
     render() {
