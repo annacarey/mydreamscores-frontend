@@ -9,7 +9,7 @@ const initialState = {
         sentiment: 0,
         magnitude: 0
     },
-    allJournalEntries: []
+    myJournalEntries: []
 }
 
 function journalReducer(state = initialState, action) {

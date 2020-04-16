@@ -7,8 +7,6 @@ import { withRouter } from "react-router-dom";
 
 function Journal(props) {
 
-    // console.log(props.location.state.return)
-
     const [timer, setTimer] = useState(3000);
 
     const handleSubmit = (e) => {
@@ -69,6 +67,7 @@ function Journal(props) {
 const msp = state => {
     return {
         currentUser: state.user.currentUser,
+        region: state.user.region,
         loading: state.journal.loading
     }
 }

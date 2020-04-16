@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Graph from '../components/Graph'
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
+import {getRegionActionCreator} from '../actionCreators'
 import styled from 'styled-components'
 import moment from 'moment'
 import { withRouter } from "react-router-dom";
@@ -10,16 +10,17 @@ import { withRouter } from "react-router-dom";
 class Dashboard extends React.Component {
 
     state = {
-        loading: false,
-        region: "",
         allJournalEntries: [],
         myJournalEntries: []
     }
 
     componentDidMount() {
-        if (this.props.currentUser.zipcode!=="") {
-            this.getRegion(this.props.currentUser.zipcode).then(region => this.setState({region}))
-         } else { this.getRegion(this.props.zipcode).then(region => this.setState({region})) }
+        // if (this.props.currentUser.zipcode!=="") {
+        //     this.getRegion(this.props.currentUser.zipcode).then(region => this.setState({region}))
+        //  } else { 
+        //      this.props.getRegion(this.props.zipcode)
+        //      this.props.getRegion(this.props.zipcode).then(region => this.setState({region})) 
+        //     }
 
         fetch('http://localhost:3000/journal-entries')
         .then((res) => res.json())
@@ -69,13 +70,15 @@ class Dashboard extends React.Component {
     }
 
     render() { 
-        console.log(this.state)
         // Check to make sure user has journal entries loaded
         const myJournalEntriesLoaded = this.state.myJournalEntries.length !== 0
 
         //My Data
         // const lastJournalEntrySentiment = this.props.location.state? this.props.location.state.sentiment : "N/A"
-        const lastJournalEntrySentiment = myJournalEntriesLoaded? this.state.myJournalEntries.slice(-1)[0].sentiment.toFixed(5) : this.props.currentJournalEntry.sentiment.toFixed(5)
+        let lastJournalEntrySentiment = "N/A";
+        if (this.props.currentUser.id!=="") {
+            lastJournalEntrySentiment = myJournalEntriesLoaded? this.state.myJournalEntries.slice(-1)[0].sentiment.toFixed(5) : this.props.currentJournalEntry.sentiment.toFixed(5)
+        }
         const myWeeklyJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.state.myJournalEntries, "weekly") : "N/A"
         const myAllTimeJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.state.myJournalEntries, "all time"): "N/A"
 
@@ -86,7 +89,7 @@ class Dashboard extends React.Component {
                
         //Location data 
 
-        const myRegionJournalEntries = this.state.allJournalEntries.filter(journalEntry => this.getRegion(journalEntry.zipcode).then(region => region === this.state.region))
+        const myRegionJournalEntries = this.state.allJournalEntries.filter(journalEntry => this.getRegion(journalEntry.zipcode).then(region => region === this.props.region))
 
         const dailyRegionJournalEntryAverage = this.getAverage(myRegionJournalEntries, "daily")
         const weeklyRegionJournalEntryAverage = this.getAverage(myRegionJournalEntries, "weekly")
@@ -111,7 +114,7 @@ class Dashboard extends React.Component {
                             <DataBody>{lastJournalEntrySentiment}</DataBody>
                         </DataSection>
                         <DataSection backgroundColor="#4B9EA5">
-                            <DataHeader>Daily Average</DataHeader>
+                            <DataHeader>Weekly Average</DataHeader>
                             <DataBody>{myWeeklyJournalEntryAverage}</DataBody>
                         </DataSection>
                         <DataSection backgroundColor="#4B9EA5">
@@ -138,7 +141,7 @@ class Dashboard extends React.Component {
                         </DataSection>
                     </Row>
                     <RowHeader>
-                        <h1>Regional Sentiment: {this.state.region}</h1>
+                        <h1>Regional Sentiment: {this.props.region}</h1>
                     </RowHeader>
                     <Divider style={{marginLeft: "15%", marginRight: "15%"}}/>
                     <Row >
@@ -166,6 +169,7 @@ class Dashboard extends React.Component {
 const msp = state => {
     return {
         currentUser: state.user.currentUser,
+        region: state.user.region,
         currentJournalEntry: state.journal.currentJournalEntry
     }
 }

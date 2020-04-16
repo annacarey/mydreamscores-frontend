@@ -40,7 +40,7 @@ const getUserFailed = (error) => {return {
 }}
 
 // Sign up user
-const signupUserActionCreator = (userInfo) => dispatch => {
+const signupUserActionCreator = userInfo => dispatch => {
     dispatch(signupUserStarted())
 
     return fetch('http://localhost:3000/signup', {
@@ -62,23 +62,36 @@ const signupUserStarted = () => ({
     type: 'SIGNUP_USER_STARTED'
 })
 
-const signupUserSuccess = (user) => {
+const signupUserSuccess = user => {
     return ({
         type: 'SIGNUP_USER_SUCCESS', 
         payload: {user}
     })
 }
 
-const signupUserFailed = (errors) => ({
+const signupUserFailed = errors => ({
     type: 'SIGNUP_USER_FAILED',
     payload: {errors}
 })
 
 const logoutUser = () => {
-    localStorage.removeItem('user');
     return ({
-    
     type: 'LOGOUT_USER'})
+}
+
+const getRegionActionCreator = zipcode => dispatch => {
+    return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+        .then((res) => res.json())
+        .then(locationData => {
+            dispatch(getRegion(locationData["results"][0]["address_components"][2]["long_name"]))
+        })
+}
+
+const getRegion = region => {
+    return ({
+        type: 'GET_REGION',
+        payload: {region}
+    })
 }
 
 const addJournalEntryActionCreator = (content, zipcode, user) => dispatch => {
@@ -123,4 +136,4 @@ const updateJournalEntry = (journalEntry) => ({
     payload: {journalEntry}
 })
 
-export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, updateJournalEntryRequest , logoutUser}
+export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, getRegionActionCreator, updateJournalEntryRequest , logoutUser}
