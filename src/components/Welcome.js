@@ -88,7 +88,6 @@ const mdp = dispatch => {
     }
 }
 
-
 export default connect(null, mdp)(Welcome)
 
 const Header = styled.h1`

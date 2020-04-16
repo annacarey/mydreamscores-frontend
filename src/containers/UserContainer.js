@@ -5,7 +5,9 @@ import Welcome from '../components/Welcome'
 import Journal from '../components/Journal'
 import SentimentView from '../components/SentimentView'
 import styled from 'styled-components'
+import {connect} from 'react-redux';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {getRegionActionCreator} from '../actionCreators'
 
 class UserContainer extends React.Component {
 
@@ -15,6 +17,7 @@ class UserContainer extends React.Component {
 
     setZipcode = (zipcode) => {
         this.setState(() => { return {zipcode: zipcode}})
+        this.props.getRegion(zipcode)
     }
 
     render() {
@@ -32,7 +35,13 @@ class UserContainer extends React.Component {
     }
 }
 
-export default UserContainer
+const mdp = dispatch => {
+    return {
+        getRegion: zipcode => dispatch(getRegionActionCreator(zipcode))
+    }
+}
+
+export default connect(null, mdp)(UserContainer)
 
 const Wrapper = styled.section`
     height: 100vh;

@@ -2,6 +2,7 @@
 const initialState = {
     loading: false,
     error: null,
+    region: "",
     currentUser: {
         id: "",
         email: "",
@@ -30,6 +31,8 @@ function userReducer(state = initialState, action) {
             return {...state, loading: false, error: action.payload.error }
         case 'LOGOUT_USER':
             return {...state, currentUser: initialState.currentUser}
+        case 'GET_REGION':
+            return {...state, region: action.payload.region}
         default:
             return state
     }
