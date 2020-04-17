@@ -7,6 +7,7 @@ import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import PropTypes from 'prop-types';
+import MenuBar from './MenuBar'
 
 function SentimentView(props) {
 
@@ -63,9 +64,12 @@ function SentimentView(props) {
  const classes = useStyles();
  
  const sentiment = props.currentJournalEntry.sentiment
+ console.log(props)
 
     return (
         <Wrapper>
+
+            {props.user.id !== "" && <MenuBar />}
             <Top>
                 <Header><strong>Your Sentiment Score is <Num>{sentiment.toFixed(5)}</Num> with magnitude of <Num>{props.currentJournalEntry.magnitude.toFixed(5)}</Num>.</strong></Header>
                 <br></br>
@@ -95,8 +99,8 @@ function SentimentView(props) {
             <Bottom>
                 <BottomContentWrapper>
                     <Para>For more info on the sentiment analysis, go to  <a href="https://cloud.google.com/natural-language">Google's Cloud Natural Language API.</a> </Para>
-                    {props.location.state.return? <DashboardButton onClick={() => props.history.push("/dashboard", {sentiment})}>Continue to Dashboard</DashboardButton> : null}
-                    <SignUpBlock display={!props.location.state.return}>
+                    {props.user.id !== ""? <DashboardButton onClick={() => props.history.push("/dashboard", {sentiment})}>Continue to Dashboard</DashboardButton> : null}
+                    <SignUpBlock display={props.user.id === ""}>
                         <Para>Our tool is most helpful when you can track your sentiment over time.<br/>To return and journal again, sign up for an account below:</Para>
                         <UserSignup sentiment={sentiment} zipcode={props.zipcode}/>
                         <br/>

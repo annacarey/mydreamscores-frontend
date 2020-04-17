@@ -3,6 +3,7 @@ import UserLogin from '../components/UserLogin'
 import Dashboard from './Dashboard'
 import Welcome from '../components/Welcome'
 import Journal from '../components/Journal'
+import History from '../components/History'
 import SentimentView from '../components/SentimentView'
 import styled from 'styled-components'
 import {connect} from 'react-redux';
@@ -28,7 +29,8 @@ class UserContainer extends React.Component {
                     <Route exact path='/login' render={ () =><UserLogin /> } />
                     <Route exact path = '/dashboard' render={ (props) =><Dashboard {...props} zipcode={this.state.zipcode} /> }  />
                     <Route exact path='/journal' render={() => <Journal zipcode={this.state.zipcode}/>} />
-                    <Route exact path = '/sentiment' render={ (props) =><SentimentView {...props} zipcode={this.state.zipcode} /> }  />
+                    <Route exact path = '/sentiment' render={ (props) =><SentimentView  {...props} zipcode={this.state.zipcode} /> }  />
+                    <Route exact path = '/history' render={ (props) =><History {...props} /> }  />
                 </Switch>
             </Wrapper>
         )

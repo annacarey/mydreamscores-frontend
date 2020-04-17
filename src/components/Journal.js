@@ -7,15 +7,14 @@ import { withRouter } from "react-router-dom";
 
 function Journal(props) {
 
-    const [timer, setTimer] = useState(3000);
+    const [timer, setTimer] = useState(10000);
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const content = e.target.elements[0].value
         const zipcode = props.currentUser.id !== ""? props.currentUser.zipcode : props.zipcode
         props.addJournalEntry(content, zipcode, props.currentUser).then(() => {
-            console.log("in journal before push")
-            props.currentUser.id ? props.history.push({pathname: "/sentiment", state: { return: true }}) : props.history.push({pathname: "/sentiment", state: { return: false}})
+            props.currentUser.id ? props.history.push("/sentiment") : props.history.push("/sentiment")
         })
     }
 
