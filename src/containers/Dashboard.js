@@ -1,40 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import MenuBar from '../components/MenuBar'
 import Graph from '../components/Graph'
 import Divider from '@material-ui/core/Divider';
-import {getRegionActionCreator} from '../actionCreators'
+import {getJournalEntriesActionCreator, getMyJournalEntriesActionCreator} from '../actionCreators'
 import styled from 'styled-components'
 import moment from 'moment'
 import { withRouter } from "react-router-dom";
 
 class Dashboard extends React.Component {
 
-    state = {
-        allJournalEntries: [],
-        myJournalEntries: []
-    }
-
     componentDidMount() {
-        // if (this.props.currentUser.zipcode!=="") {
-        //     this.getRegion(this.props.currentUser.zipcode).then(region => this.setState({region}))
-        //  } else { 
-        //      this.props.getRegion(this.props.zipcode)
-        //      this.props.getRegion(this.props.zipcode).then(region => this.setState({region})) 
-        //     }
 
-        fetch('http://localhost:3000/journal-entries')
-        .then((res) => res.json())
-        .then((allJournalEntries) => {
-            this.setState({allJournalEntries})
-        })
+        this.props.getAllJournalEntries()
 
         if (this.props.currentUser.id !== "") {
-            fetch(`http://localhost:3000/users/${this.props.currentUser.id}/journal-entries`)
-            .then((res) => res.json())
-            .then((myJournalEntries) => { 
-                this.setState({myJournalEntries})
-            })
-        }   
+            this.props.getMyJournalEntries(this.props.currentUser.id)
+        }
+
     }
 
     getAverage = (journalEntries, type) => {
@@ -71,25 +54,25 @@ class Dashboard extends React.Component {
 
     render() { 
         // Check to make sure user has journal entries loaded
-        const myJournalEntriesLoaded = this.state.myJournalEntries.length !== 0
+        const myJournalEntriesLoaded = this.props.myJournalEntries.length !== 0
 
         //My Data
         // const lastJournalEntrySentiment = this.props.location.state? this.props.location.state.sentiment : "N/A"
         let lastJournalEntrySentiment = "N/A";
         if (this.props.currentUser.id!=="") {
-            lastJournalEntrySentiment = myJournalEntriesLoaded? this.state.myJournalEntries.slice(-1)[0].sentiment.toFixed(5) : this.props.currentJournalEntry.sentiment.toFixed(5)
+            lastJournalEntrySentiment = myJournalEntriesLoaded? this.props.myJournalEntries.slice(0)[0].sentiment.toFixed(5) : this.props.currentJournalEntry.sentiment.toFixed(5)
         }
-        const myWeeklyJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.state.myJournalEntries, "weekly") : "N/A"
-        const myAllTimeJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.state.myJournalEntries, "all time"): "N/A"
+        const myWeeklyJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.props.myJournalEntries, "weekly") : "N/A"
+        const myAllTimeJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.props.myJournalEntries, "all time"): "N/A"
 
         //Global data
-        const dailyJournalEntryAverage = this.getAverage(this.state.allJournalEntries, "daily")
-        const weeklyJournalEntryAverage = this.getAverage(this.state.allJournalEntries, "weekly")
-        const allTimeJournalEntryAverage = this.getAverage(this.state.allJournalEntries, "all time")
+        const dailyJournalEntryAverage = this.getAverage(this.props.allJournalEntries, "daily")
+        const weeklyJournalEntryAverage = this.getAverage(this.props.allJournalEntries, "weekly")
+        const allTimeJournalEntryAverage = this.getAverage(this.props.allJournalEntries, "all time")
                
         //Location data 
 
-        const myRegionJournalEntries = this.state.allJournalEntries.filter(journalEntry => this.getRegion(journalEntry.zipcode).then(region => region === this.props.region))
+        const myRegionJournalEntries = this.props.allJournalEntries.filter(journalEntry => this.getRegion(journalEntry.zipcode).then(region => region === this.props.region))
 
         const dailyRegionJournalEntryAverage = this.getAverage(myRegionJournalEntries, "daily")
         const weeklyRegionJournalEntryAverage = this.getAverage(myRegionJournalEntries, "weekly")
@@ -97,9 +80,11 @@ class Dashboard extends React.Component {
                
         return (    
             <Wrapper>
+                <MenuBar/>
                 <CardWrapper>
                     <ButtonWrapper>
                         <JournalButton onClick={() => this.props.history.push("/journal", { return: true })}><strong>Go To Daily Journal</strong></JournalButton>
+                        <HistoryButton onClick = {() => this.props.history.push("/history")}><strong>View History</strong></HistoryButton>
                         <LogoutButton onClick={() => this.props.history.push("/")}><strong>Logout</strong></LogoutButton>
                     </ButtonWrapper>
                     <Header><strong>Your Sentiment Dashboard</strong></Header>
@@ -170,11 +155,20 @@ const msp = state => {
     return {
         currentUser: state.user.currentUser,
         region: state.user.region,
-        currentJournalEntry: state.journal.currentJournalEntry
+        currentJournalEntry: state.journal.currentJournalEntry,
+        myJournalEntries: state.journal.myJournalEntries,
+        allJournalEntries: state.journal.allJournalEntries
     }
 }
 
-export default withRouter(connect(msp)(Dashboard))
+const mdp = dispatch => {
+    return {
+        getMyJournalEntries: userId => dispatch(getMyJournalEntriesActionCreator(userId)),
+        getAllJournalEntries: () => dispatch(getJournalEntriesActionCreator())
+    }
+}
+
+export default withRouter(connect(msp, mdp)(Dashboard))
 
 const Header = styled.h1`
     font-size: 30px;
@@ -243,6 +237,19 @@ const ButtonWrapper = styled.section`
     justify-content: flex-end
 `
 const JournalButton = styled.button`
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px 10px 10px 0px;
+    color: black;
+    background-color: white;
+    border-style: none;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+`
+
+const HistoryButton = styled.button`
     padding: 10px;
     font-size: 16px;
     margin: 10px 10px 10px 0px;

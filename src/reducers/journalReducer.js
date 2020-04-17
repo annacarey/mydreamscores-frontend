@@ -9,7 +9,8 @@ const initialState = {
         sentiment: 0,
         magnitude: 0
     },
-    myJournalEntries: []
+    myJournalEntries: [],
+    allJournalEntries: []
 }
 
 function journalReducer(state = initialState, action) {
@@ -20,6 +21,10 @@ function journalReducer(state = initialState, action) {
             return {...state, currentJournalEntry: action.payload.journalEntry, loading: false}
         case 'UPDATE_JOURNAL_ENTRY':
             return {...state, currentJournalEntry: action.payload.journalEntry, loading: false}
+        case 'GET_MY_JOURNAL_ENTRIES':
+            return {...state, myJournalEntries: action.payload.journalEntries}
+        case 'GET_JOURNAL_ENTRIES':
+            return {...state, allJournalEntries: action.payload.journalEntries}
         default:
             return state
     }

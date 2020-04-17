@@ -2,7 +2,7 @@
 const initialState = {
     loading: false,
     error: null,
-    region: "",
+    region: "Everywhere",
     currentUser: {
         id: "",
         email: "",
@@ -28,7 +28,7 @@ function userReducer(state = initialState, action) {
         case 'SIGNUP_USER_SUCCESS':
             return {...state, loading: false, error: null, currentUser: action.payload.user}
         case 'SIGNUP_USER_FAILED':
-            return {...state, loading: false, error: action.payload.error }
+            return {...state, loading: false, error: action.payload.errors }
         case 'LOGOUT_USER':
             return {...state, currentUser: initialState.currentUser}
         case 'GET_REGION':

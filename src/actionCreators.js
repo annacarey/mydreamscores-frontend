@@ -52,7 +52,6 @@ const signupUserActionCreator = userInfo => dispatch => {
         })
     }).then((response) => response.json())
       .then((user) => {
-            console.log("in signup fetch", user)
             user.error? dispatch(signupUserFailed(user.error)) : dispatch(signupUserSuccess(user))
             return user
       })
@@ -69,10 +68,11 @@ const signupUserSuccess = user => {
     })
 }
 
-const signupUserFailed = errors => ({
+const signupUserFailed = errors => { 
+    return ({
     type: 'SIGNUP_USER_FAILED',
     payload: {errors}
-})
+})}
 
 const logoutUser = () => {
     return ({
@@ -131,9 +131,35 @@ const updateJournalEntryRequest = (userId, journalEntryId) => dispatch => {
         })
 }
 
-const updateJournalEntry = (journalEntry) => ({
+const updateJournalEntry = journalEntry => ({
     type: 'UPDATE_JOURNAL_ENTRY',
     payload: {journalEntry}
 })
 
-export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, getRegionActionCreator, updateJournalEntryRequest , logoutUser}
+const getMyJournalEntriesActionCreator = userId => dispatch => {
+    fetch(`http://localhost:3000/users/${userId}}/journal-entries`)
+    .then((res) => res.json())
+    .then((myJournalEntries) => { 
+        dispatch(getMyJournalEntries(myJournalEntries))
+    })
+}
+
+const getMyJournalEntries = journalEntries => ({
+    type: 'GET_MY_JOURNAL_ENTRIES',
+    payload: {journalEntries}
+})
+
+const getJournalEntriesActionCreator = userId => dispatch => {
+    fetch('http://localhost:3000/journal-entries')
+    .then((res) => res.json())
+    .then((allJournalEntries) => { 
+        dispatch(getJournalEntries(allJournalEntries))
+    })
+}
+
+const getJournalEntries = journalEntries => ({
+    type: 'GET_JOURNAL_ENTRIES',
+    payload: {journalEntries}
+})
+
+export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, getRegionActionCreator, updateJournalEntryRequest, getMyJournalEntriesActionCreator, getJournalEntriesActionCreator, logoutUser}
