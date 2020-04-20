@@ -119,7 +119,7 @@ const addJournalEntry = journalEntry => ({
 })
 
 const updateJournalEntryRequest = (userId, journalEntryId) => dispatch => {
-    fetch(`http://localhost:3000/journal-entries/${journalEntryId}`, {
+    return fetch(`http://localhost:3000/journal-entries/${journalEntryId}`, {
         method: "PATCH",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -137,9 +137,10 @@ const updateJournalEntry = journalEntry => ({
 })
 
 const getMyJournalEntriesActionCreator = userId => dispatch => {
-    fetch(`http://localhost:3000/users/${userId}}/journal-entries`)
+    return fetch(`http://localhost:3000/users/${userId}/journal-entries`)
     .then((res) => res.json())
     .then((myJournalEntries) => { 
+        console.log(myJournalEntries)
         dispatch(getMyJournalEntries(myJournalEntries))
     })
 }
@@ -149,7 +150,7 @@ const getMyJournalEntries = journalEntries => ({
     payload: {journalEntries}
 })
 
-const getJournalEntriesActionCreator = userId => dispatch => {
+const getJournalEntriesActionCreator = () => dispatch => {
     fetch('http://localhost:3000/journal-entries')
     .then((res) => res.json())
     .then((allJournalEntries) => { 

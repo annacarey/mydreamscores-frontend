@@ -21,7 +21,7 @@ class UserSignup extends React.Component {
         .then(user => {
             if (!user.error) {
                 this.props.updateJournalEntry(user.id, this.props.currentJournalEntry.id)
-            }})
+            }}) 
         .then(() => {
             if (this.props.currentUser.id !=="") {
                 this.props.history.push("/dashboard", {sentiment: this.props.sentiment})
@@ -39,7 +39,6 @@ class UserSignup extends React.Component {
                 <Input autocomplete="off" placeholder="Password..." onChange={e => this.setState({password: e.target.value})} type="password" name="password" value={this.state.password} />
                 <Input autocomplete="off" placeholder="Confirm Password..." onChange={e => this.setState({passwordConfirmation: e.target.value})} type="password" name="password" value={this.state.passwordConfirmation} />
                 {this.props.error && this.props.error.length > 1? this.props.error.map(error=><P>{error}</P>) : <P>{this.props.error}</P>}
-                {/* <Errors errors={this.props.error} /> */}
                 <Checkbox>
                     <label><input onChange={e => this.setState({okToContact: e.target.checked})} type="checkbox" id="contactOptIn"></input>Opt in to receive SMS and email reminders.</label>
                 </Checkbox>

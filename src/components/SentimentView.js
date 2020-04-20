@@ -64,7 +64,6 @@ function SentimentView(props) {
  const classes = useStyles();
  
  const sentiment = props.currentJournalEntry.sentiment
- console.log(props)
 
     return (
         <Wrapper>

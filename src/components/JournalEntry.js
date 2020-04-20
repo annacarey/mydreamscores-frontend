@@ -23,7 +23,7 @@ function JournalEntry(props) {
                 </Para>
             </RightSection>
             <LeftSection>
-                <ScoreSection backgroundColor={props.journalEntry.sentiment > 0? "#95CCD9" : "#F0C1AA"}>
+                <ScoreSection backgroundColor={props.journalEntry.sentiment >= 0? "#95CCD9" : "#F0C1AA"}>
                     <Para2>Sentiment</Para2>
                     <Score><strong>{props.journalEntry.sentiment.toFixed(5)}</strong></Score>
                 </ScoreSection>
