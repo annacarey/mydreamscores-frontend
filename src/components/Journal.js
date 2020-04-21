@@ -12,7 +12,8 @@ function Journal(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
         const content = e.target.elements[0].value
-        const zipcode = props.currentUser.id !== ""? props.currentUser.zipcode : props.zipcode
+        console.log(props.currentUser)
+        const zipcode = props.currentUser.zipcode
         props.addJournalEntry(content, zipcode, props.currentUser).then(() => {
             props.currentUser.id ? props.history.push("/sentiment") : props.history.push("/sentiment")
         })

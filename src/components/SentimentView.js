@@ -101,7 +101,7 @@ function SentimentView(props) {
                     {props.user.id !== ""? <DashboardButton onClick={() => props.history.push("/dashboard", {sentiment})}>Continue to Dashboard</DashboardButton> : null}
                     <SignUpBlock display={props.user.id === ""}>
                         <Para>Our tool is most helpful when you can track your sentiment over time.<br/>To return and journal again, sign up for an account below:</Para>
-                        <UserSignup sentiment={sentiment} zipcode={props.zipcode}/>
+                        <UserSignup sentiment={sentiment} />
                         <br/>
                         <Link to="/dashboard">Skip for now and view triends >></Link>
                     </SignUpBlock>
@@ -138,8 +138,8 @@ const DashboardButton = styled.button`
     }
 `
 const Wrapper = styled.section` 
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     font-size: 16px;

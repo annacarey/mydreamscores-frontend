@@ -18,6 +18,6 @@ function App() {
 export default App;
 
 const Wrapper = styled.section`
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 `

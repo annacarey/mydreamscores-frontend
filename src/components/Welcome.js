@@ -8,18 +8,28 @@ import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import mountains from '../images/mountains.jpeg'
 import {connect} from 'react-redux';
-import {logoutUser} from '../actionCreators'
+import {logoutUser, getRegionActionCreator, setError} from '../actionCreators'
+import {error as zipcodeError} from '../helpers/error'
 
 function Welcome(props) {
 
     const [zipcode, setZipcode] = useState("")
 
+    const numChecker = new RegExp("^[0-9]{5}(?:-[0-9]{4})?$")
+
     const handleSubmit = e => {
         e.preventDefault()
-        props.setZipcode(zipcode)
-        props.history.push("/journal")
+        if (numChecker.test(zipcode)) {
+            props.getRegion(zipcode).then(error => {   
+                if (error !== zipcodeError) {
+                    props.history.push("/journal")
+                }
+            })
+        } else {
+            props.setError(zipcodeError)
+        }
     }
-
+    
     useEffect(() => {
         props.logout()
     }, [])
@@ -46,7 +56,8 @@ function Welcome(props) {
         },
         iconButton: {
           padding: 10,
-          color: 'black'
+          color: 'black',
+          width: 55,
         }
       }))
       const classes = useStyles();
@@ -73,6 +84,7 @@ function Welcome(props) {
                             <ArrowForwardIosIcon />
                         </IconButton>
                     </Paper>
+                    <P>  {props.error}</P>
                 </FormContainer>
                 <Login>Been here before? Log in <Link style={{color: '#d3d3d3'}} to="/login">here</Link>.</Login>
             </ContentWrapper>
@@ -82,13 +94,21 @@ function Welcome(props) {
     )
 }
 
-const mdp = dispatch => {
+const msp = state => {
     return {
-        logout: () => dispatch(logoutUser())
+        error: state.user.error
     }
 }
 
-export default connect(null, mdp)(Welcome)
+const mdp = dispatch => {
+    return {
+        logout: () => dispatch(logoutUser()),
+        getRegion: zipcode => dispatch(getRegionActionCreator(zipcode)),
+        setError: error => dispatch(setError(error))
+    }
+}
+
+export default connect(msp, mdp)(Welcome)
 
 const Header = styled.h1`
     text-align: center;
@@ -100,6 +120,11 @@ const Login = styled.div`
     padding-top: 50px;
 `
 
+const P = styled.div`
+    font-size: 20px;
+    color: red;
+    margin-top: 10px;
+`
 const ContentWrapper = styled.section`
     width: 450px;
     text-align: center;
@@ -109,6 +134,7 @@ const FormContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 `
@@ -120,7 +146,8 @@ const Wrapper = styled.section`
     padding: 20px;
     padding-right: 10px;
     background-image: url(${mountains}) ;
-    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: white;
     height: 100%;
     width: 100%;

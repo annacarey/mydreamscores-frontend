@@ -1,0 +1,1 @@
+export const error = "Invalid zipcode. Please try again."

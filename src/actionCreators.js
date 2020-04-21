@@ -1,3 +1,4 @@
+import {error as zipcodeError} from './helpers/error'
 
 // Log in user
 const getUserActionCreator = (email, password) => dispatch => {
@@ -83,7 +84,21 @@ const getRegionActionCreator = zipcode => dispatch => {
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
-            dispatch(getRegion(locationData["results"][0]["address_components"][2]["long_name"]))
+            console.log(locationData)
+            const getData = (nestedObj, pathArr) => {
+                return pathArr.reduce((obj, key) =>
+                    (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
+            }
+            const region = getData(locationData, ["results", 0, "address_components", 2, "long_name"]) === undefined? zipcodeError : getData(locationData, ["results", 0, "address_components", 2, "long_name"])
+            if (region !== zipcodeError) {
+                dispatch(getRegion(locationData["results"][0]["address_components"][2]["long_name"]))
+                dispatch(setZipcode(zipcode))
+                return region
+            } else {
+                console.log("got here")
+                dispatch(getRegionFailed(region))
+                return region
+            }
         })
 }
 
@@ -91,6 +106,27 @@ const getRegion = region => {
     return ({
         type: 'GET_REGION',
         payload: {region}
+    })
+}
+
+const setZipcode = zipcode => {
+    return ({
+        type: 'SET_ZIPCODE',
+        payload: {zipcode}
+    })
+}
+
+const setError = error => {
+    return ({
+        type: 'SET_ERROR',
+        payload: {error}
+    })
+}
+
+const getRegionFailed = error => {
+    return ({
+        type: 'GET_REGION_FAILED',
+        payload: {error}
     })
 }
 
@@ -163,4 +199,4 @@ const getJournalEntries = journalEntries => ({
     payload: {journalEntries}
 })
 
-export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, getRegionActionCreator, updateJournalEntryRequest, getMyJournalEntriesActionCreator, getJournalEntriesActionCreator, logoutUser}
+export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, getRegionActionCreator, updateJournalEntryRequest, getMyJournalEntriesActionCreator, getJournalEntriesActionCreator, logoutUser, setError}

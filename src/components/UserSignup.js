@@ -12,7 +12,7 @@ class UserSignup extends React.Component {
         password: "",
         passwordConfirmation: "",
         okToContact: false,
-        zipcode: this.props.zipcode
+        zipcode: this.props.currentUser.zipcode
     }
 
     handleSubmit = e => {
@@ -55,7 +55,6 @@ const msp = state => {
         currentJournalEntry: state.journal.currentJournalEntry
     }
 }
-
 
 const mdp = dispatch => {
     return {

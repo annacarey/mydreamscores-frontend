@@ -12,24 +12,15 @@ import {getRegionActionCreator} from '../actionCreators'
 
 class UserContainer extends React.Component {
 
-    state = {
-        zipcode: ""
-    }
-
-    setZipcode = (zipcode) => {
-        this.setState(() => { return {zipcode: zipcode}})
-        this.props.getRegion(zipcode)
-    }
-
     render() {
         return (
             <Wrapper>
                 <Switch>
-                    <Route exact path ="/" render={ (props) => <Welcome {...props} setZipcode={this.setZipcode}/> } /> 
+                    <Route exact path ="/" render={ (props) => <Welcome {...props} /> } /> 
                     <Route exact path='/login' render={ () =><UserLogin /> } />
-                    <Route exact path = '/dashboard' render={ (props) =><Dashboard {...props} zipcode={this.state.zipcode} /> }  />
-                    <Route exact path='/journal' render={() => <Journal zipcode={this.state.zipcode}/>} />
-                    <Route exact path = '/sentiment' render={ (props) =><SentimentView  {...props} zipcode={this.state.zipcode} /> }  />
+                    <Route exact path = '/dashboard' render={ (props) =><Dashboard {...props} /> }  />
+                    <Route exact path='/journal' render={(props) => <Journal {...props}/>} />
+                    <Route exact path = '/sentiment' render={ (props) =><SentimentView  {...props} /> }  />
                     <Route exact path = '/history' render={ (props) =><History {...props} /> }  />
                 </Switch>
             </Wrapper>
@@ -46,6 +37,6 @@ const mdp = dispatch => {
 export default connect(null, mdp)(UserContainer)
 
 const Wrapper = styled.section`
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 `

@@ -82,17 +82,12 @@ class Dashboard extends React.Component {
             <Wrapper>
                 <MenuBar/>
                 <CardWrapper>
-                    <ButtonWrapper>
-                        <JournalButton onClick={() => this.props.history.push("/journal", { return: true })}><strong>Go To Daily Journal</strong></JournalButton>
-                        <HistoryButton onClick = {() => this.props.history.push("/history")}><strong>View History</strong></HistoryButton>
-                        <LogoutButton onClick={() => this.props.history.push("/")}><strong>Logout</strong></LogoutButton>
-                    </ButtonWrapper>
                     <Header><strong>Your Sentiment Dashboard</strong></Header>
                     <RowHeader>
                         <h1>My Sentiment</h1>
                         
                     </RowHeader>
-                    <Divider style={{marginLeft: "15%", marginRight: "15%"}}/>
+                    <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
                     <Row>
                         <DataSection backgroundColor="#4B9EA5">
                             <DataHeader>Most Recent</DataHeader>
@@ -110,7 +105,7 @@ class Dashboard extends React.Component {
                     <RowHeader>
                         <h1>Global Sentiment</h1>
                     </RowHeader>
-                    <Divider style={{marginLeft: "15%", marginRight: "15%"}}/>
+                    <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
                     <Row >
                         <DataSection backgroundColor="#95CCD9">
                             <DataHeader>Daily Average</DataHeader>
@@ -128,7 +123,7 @@ class Dashboard extends React.Component {
                     <RowHeader>
                         <h1>Regional Sentiment: {this.props.region}</h1>
                     </RowHeader>
-                    <Divider style={{marginLeft: "15%", marginRight: "15%"}}/>
+                    <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
                     <Row >
                         <Divider />
                         <DataSection backgroundColor="#F0C1AA">
@@ -173,17 +168,17 @@ export default withRouter(connect(msp, mdp)(Dashboard))
 const Header = styled.h1`
     font-size: 30px;
     width: 70%;
-    padding-left: 15%;
+    padding-left: 40px;
     padding-right: 15%;
 `
 const Wrapper = styled.div`
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 `
 
 const RowHeader = styled.div`
     width: 70%;
-    padding-left: 15%;
+    padding-left: 40px;
     padding-right: 15%;
 `
 
@@ -197,7 +192,7 @@ const CardWrapper = styled.section`
 
 const Row = styled.section`
     width: 70%;
-    padding-left: 15%;
+    padding-left: 40px;
     padding-right: 15%;
     display: flex;
 `
@@ -226,55 +221,6 @@ const DataHeader = styled.div`
 const DataBody = styled.div`
     font-size: 40px;
     position: absolute;
-`
-
-const ButtonWrapper = styled.section`
-    margin-top: 10px;
-    top: 10px;
-    margin-right: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end
-`
-const JournalButton = styled.button`
-    padding: 10px;
-    font-size: 16px;
-    margin: 10px 10px 10px 0px;
-    color: black;
-    background-color: white;
-    border-style: none;
-    cursor: pointer;
-    &:focus {
-        outline: none;
-    }
-`
-
-const HistoryButton = styled.button`
-    padding: 10px;
-    font-size: 16px;
-    margin: 10px 10px 10px 0px;
-    color: black;
-    background-color: white;
-    border-style: none;
-    cursor: pointer;
-    &:focus {
-        outline: none;
-    }
-`
-
-const LogoutButton = styled.button`
-    padding: 10px;
-    width: 130px;
-    border-radius: 10px;
-    border-style: none;
-    font-size: 16px;
-    margin: 10px 10px 10px 0px;
-    background-color: black;
-    color: white;
-    cursor: pointer;
-    &:focus {
-        outline: none;
-    }
 `
 
 
