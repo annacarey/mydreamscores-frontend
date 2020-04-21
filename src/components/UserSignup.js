@@ -12,7 +12,7 @@ class UserSignup extends React.Component {
         password: "",
         passwordConfirmation: "",
         okToContact: false,
-        zipcode: this.props.currentUser.zipcode
+        zipcode: this.props.user.zipcode
     }
 
     handleSubmit = e => {
@@ -23,7 +23,8 @@ class UserSignup extends React.Component {
                 this.props.updateJournalEntry(user.id, this.props.currentJournalEntry.id)
             }}) 
         .then(() => {
-            if (this.props.currentUser.id !=="") {
+            if (this.props.user.id !=="") {
+                localStorage.userId = this.props.user.id
                 this.props.history.push("/dashboard", {sentiment: this.props.sentiment})
             }
         })
@@ -50,7 +51,7 @@ class UserSignup extends React.Component {
 
 const msp = state => {
     return {
-        currentUser: state.user.currentUser,
+        user: state.user.currentUser,
         error: state.user.error,
         currentJournalEntry: state.journal.currentJournalEntry
     }

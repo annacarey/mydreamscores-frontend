@@ -13,6 +13,7 @@ function UserLogin(props) {
         e.preventDefault()
         props.login(email, password).then((user) => {
             if (!user.error) {
+                localStorage.userId = user.id
                 props.history.push('/dashboard')
             }
         })
@@ -36,7 +37,7 @@ function UserLogin(props) {
 const msp = state => {
     return {
         error: state.user.error,
-        user: state.usercurrentUser
+        user: state.user.currentUser
     }
 }
 

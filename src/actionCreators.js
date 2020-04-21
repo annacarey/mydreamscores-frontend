@@ -95,7 +95,6 @@ const getRegionActionCreator = zipcode => dispatch => {
                 dispatch(setZipcode(zipcode))
                 return region
             } else {
-                console.log("got here")
                 dispatch(getRegionFailed(region))
                 return region
             }
@@ -199,4 +198,4 @@ const getJournalEntries = journalEntries => ({
     payload: {journalEntries}
 })
 
-export {getUserActionCreator, signupUserActionCreator, addJournalEntryActionCreator, getRegionActionCreator, updateJournalEntryRequest, getMyJournalEntriesActionCreator, getJournalEntriesActionCreator, logoutUser, setError}
+export {getUserActionCreator, getUserSuccess, signupUserActionCreator, addJournalEntryActionCreator, getRegionActionCreator, updateJournalEntryRequest, getMyJournalEntriesActionCreator, getJournalEntriesActionCreator, logoutUser, setError}

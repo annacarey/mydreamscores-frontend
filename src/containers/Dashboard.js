@@ -11,13 +11,15 @@ import { withRouter } from "react-router-dom";
 class Dashboard extends React.Component {
 
     componentDidMount() {
-
         this.props.getAllJournalEntries()
+    }
 
-        if (this.props.currentUser.id !== "") {
-            this.props.getMyJournalEntries(this.props.currentUser.id)
+    componentDidUpdate(prevProps) {
+        if (this.props.currentUser.id !== prevProps.currentUser.id) {
+            if (this.props.currentUser.id !== "") {
+                this.props.getMyJournalEntries(this.props.currentUser.id)
+            }
         }
-
     }
 
     getAverage = (journalEntries, type) => {

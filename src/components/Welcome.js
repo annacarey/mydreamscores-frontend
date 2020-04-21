@@ -32,6 +32,7 @@ function Welcome(props) {
     
     useEffect(() => {
         props.logout()
+        localStorage.removeItem("userId")
     }, [])
 
     const useStyles = makeStyles(theme => ({

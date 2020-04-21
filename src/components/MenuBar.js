@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import styled from 'styled-components'
 import { NavLink} from "react-router-dom";
+import {connect} from 'react-redux';
 
 function MenuBar(props) {
-
-    const repeat = props.return
 
     return (
         <Wrapper>
@@ -12,13 +11,18 @@ function MenuBar(props) {
             <Option><Link to="/journal" exact>Daily Journal</Link></Option>
             <Option><Link to="/history" exact>History</Link> </Option>
             <Option><Link to="/sentiment" exact>View Sentiment</Link></Option>
-            <Logout><LogoutLink to="/" exact>Logout</LogoutLink></Logout>
+            <Logout ><LogoutLink to="/" exact>{props.user.id ===""? "Home" : "Logout"}</LogoutLink></Logout>
       </Wrapper>
     )
-    
 }
 
-export default MenuBar
+const msp = state => {
+    return {
+        user: state.user.currentUser
+    }
+}
+
+export default connect(msp)(MenuBar)
 
 
 const Option = styled.div`
