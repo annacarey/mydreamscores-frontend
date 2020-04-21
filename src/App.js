@@ -12,7 +12,6 @@ class App extends React.Component {
   componentDidMount() {
     const userId = localStorage.userId
     if (userId){
-      console.log("got here")
       fetch("http://localhost:3000/auto-login", {
         headers: {
           "Authorization": userId
@@ -23,7 +22,6 @@ class App extends React.Component {
         if (user.errors) {
           this.props.setError(user.errors)
         } else {
-          console.log(user)
           this.props.login(user)
         }
       })

@@ -29,8 +29,6 @@ function userReducer(state = initialState, action) {
             return {...state, loading: false, error: null, currentUser: action.payload.user}
         case 'SIGNUP_USER_FAILED':
             return {...state, loading: false, error: action.payload.errors }
-        case 'LOGOUT_USER':
-            return {...state, currentUser: initialState.currentUser}
         case 'SET_ZIPCODE':
             return {...state, currentUser: {...initialState.currentUser, zipcode: action.payload.zipcode}}
         case 'GET_REGION':

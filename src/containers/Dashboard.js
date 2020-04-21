@@ -12,6 +12,9 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         this.props.getAllJournalEntries()
+        if (this.props.currentUser.id !== "") {
+            this.props.getMyJournalEntries(this.props.currentUser.id)
+        }
     }
 
     componentDidUpdate(prevProps) {

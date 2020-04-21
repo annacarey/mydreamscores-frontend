@@ -76,6 +76,7 @@ const signupUserFailed = errors => {
 })}
 
 const logoutUser = () => {
+    localStorage.removeItem("userId")
     return ({
     type: 'LOGOUT_USER'})
 }
@@ -84,7 +85,6 @@ const getRegionActionCreator = zipcode => dispatch => {
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
-            console.log(locationData)
             const getData = (nestedObj, pathArr) => {
                 return pathArr.reduce((obj, key) =>
                     (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
@@ -175,7 +175,6 @@ const getMyJournalEntriesActionCreator = userId => dispatch => {
     return fetch(`http://localhost:3000/users/${userId}/journal-entries`)
     .then((res) => res.json())
     .then((myJournalEntries) => { 
-        console.log(myJournalEntries)
         dispatch(getMyJournalEntries(myJournalEntries))
     })
 }
