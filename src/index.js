@@ -22,7 +22,7 @@ ReactDOM.render(
 serviceWorker.unregister();
 
 app.use(cors());
-app.options('*', cors()); /
+app.options('*', cors());
 
 //store:
 //current_user, journal_entry array, current_survey, current_questions_array
