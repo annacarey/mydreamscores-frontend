@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { withRouter } from "react-router-dom";
 import moment from 'moment'
 import ClampLines from 'react-clamp-lines';
+import {coolColor, warmColor} from '../helpers/colors'
 import '../App.css';
 
 function JournalEntry(props) {
@@ -23,7 +24,7 @@ function JournalEntry(props) {
                 </Para>
             </RightSection>
             <LeftSection>
-                <ScoreSection backgroundColor={props.journalEntry.sentiment >= 0? "#95CCD9" : "#F0C1AA"}>
+                <ScoreSection backgroundColor={props.journalEntry.sentiment >= 0? coolColor : warmColor}>
                     <Para2>Mood Score</Para2>
                     <Score><strong>{props.journalEntry.sentiment.toFixed(5)}</strong></Score>
                 </ScoreSection>

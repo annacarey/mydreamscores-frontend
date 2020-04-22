@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import MenuBar from '../components/MenuBar'
 import Graph from '../components/Graph'
+import {coolColor, warmColor, mediumColor} from '../helpers/colors'
 import Divider from '@material-ui/core/Divider';
 import {getJournalEntriesActionCreator, getMyJournalEntriesActionCreator} from '../actionCreators'
 import styled from 'styled-components'
@@ -95,15 +96,15 @@ class Dashboard extends React.Component {
                     </RowHeader>
                     <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
                     <Row>
-                        <DataSection backgroundColor="#4B9EA5">
+                        <DataSection backgroundColor={coolColor}>
                             <DataHeader>Most Recent</DataHeader>
                             <DataBody>{lastJournalEntrySentiment}</DataBody>
                         </DataSection>
-                        <DataSection backgroundColor="#4B9EA5">
+                        <DataSection backgroundColor={coolColor}>
                             <DataHeader>Weekly Average</DataHeader>
                             <DataBody>{myWeeklyJournalEntryAverage}</DataBody>
                         </DataSection>
-                        <DataSection backgroundColor="#4B9EA5">
+                        <DataSection backgroundColor={coolColor}>
                             <DataHeader>All-time Average</DataHeader>
                             <DataBody>{myAllTimeJournalEntryAverage}</DataBody>
                         </DataSection>
@@ -113,15 +114,15 @@ class Dashboard extends React.Component {
                     </RowHeader>
                     <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
                     <Row >
-                        <DataSection backgroundColor="#95CCD9">
+                        <DataSection backgroundColor={mediumColor}>
                             <DataHeader>Daily Average</DataHeader>
                             <DataBody>{dailyJournalEntryAverage}</DataBody>
                         </DataSection>
-                        <DataSection backgroundColor="#95CCD9">
+                        <DataSection backgroundColor={mediumColor}>
                             <DataHeader>Weekly Average</DataHeader>
                             <DataBody>{weeklyJournalEntryAverage}  </DataBody>
                         </DataSection>
-                        <DataSection backgroundColor="#95CCD9">
+                        <DataSection backgroundColor={mediumColor}>
                             <DataHeader>All Time Average</DataHeader>
                             <DataBody>{allTimeJournalEntryAverage}</DataBody>
                         </DataSection>
@@ -132,15 +133,15 @@ class Dashboard extends React.Component {
                     <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
                     <Row >
                         <Divider />
-                        <DataSection backgroundColor="#F0C1AA">
+                        <DataSection backgroundColor={warmColor}>
                             <DataHeader>Daily Average</DataHeader>
                             <DataBody>{dailyRegionJournalEntryAverage} </DataBody>
                         </DataSection>
-                        <DataSection backgroundColor="#F0C1AA">
+                        <DataSection backgroundColor={warmColor}>
                             <DataHeader>Weekly Average</DataHeader>
                             <DataBody>{weeklyRegionJournalEntryAverage}</DataBody>
                         </DataSection>
-                        <DataSection backgroundColor="#F0C1AA">
+                        <DataSection backgroundColor={warmColor}>
                             <DataHeader>All-time Average</DataHeader>
                             <DataBody>{allTimeRegionJournalEntryAverage} </DataBody>
                         </DataSection>

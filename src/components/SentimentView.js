@@ -8,8 +8,12 @@ import { makeStyles } from '@material-ui/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import PropTypes from 'prop-types';
 import MenuBar from './MenuBar'
+import {coolColor, warmColor, mediumColor} from '../helpers/colors'
 
 function SentimentView(props) {
+
+    const sentiment = props.currentJournalEntry.sentiment
+    const markerColor = sentiment >=0? coolColor : warmColor
 
     const marks = [ {value: -1, label: 'Negative (-1)'}, {value: -0.8,},
         { value: -0.6,}, {value: -0.4}, {value: -0.2 }, {value: 0, label: 'Neutral (0)'},
@@ -18,7 +22,7 @@ function SentimentView(props) {
     const useStyles = makeStyles({
         root: {
             '&$disabled': {
-              color: 'black'
+              color: mediumColor
             },
         }, mark: {
             height: 7,
@@ -30,8 +34,8 @@ function SentimentView(props) {
             height: 7,
             opacity: 1
         },thumb: {
-            color: 'black',
-            backgroundColor: 'black',
+            color: markerColor,
+            backgroundColor: markerColor,
             '&$disabled': {
                 height: 30,
                 width: 30,
@@ -63,8 +67,6 @@ function SentimentView(props) {
     
  const classes = useStyles();
  
- const sentiment = props.currentJournalEntry.sentiment
-
     return (
         <Wrapper>
 

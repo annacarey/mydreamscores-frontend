@@ -6,7 +6,9 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
-import mountains from '../images/mountains.jpeg'
+import dreamsky from '../images/dreamsky.jpg'
+import dreamsky2 from '../images/dreamsky2.jpg'
+import dreamsky3 from '../images/dreamsky3.jpg'
 import {connect} from 'react-redux';
 import {logoutUser, getRegionActionCreator, setError} from '../actionCreators'
 import {error as zipcodeError} from '../helpers/error'
@@ -47,6 +49,7 @@ function Welcome(props) {
         },
         input: {
             color: 'black',
+            opacity: 1.0,
             '&&:placeholder': {
                 fontStyle: 'bold',
               textOverflow: 'ellipsis !important',
@@ -65,13 +68,10 @@ function Welcome(props) {
 
     return (
         <Wrapper>
-            <Header>How are you? </Header>
+            <Header>What's your DreamScore?</Header>
             <ContentWrapper>
-                <p> Really, how are you doing? <br/>
-                    As the novel coronavirus unfolds, it becomes <br/>more difficult to slow down and reflect.
-                    Many <br/>are quantifying the physical and economic toll<br/> of the pandemic, but how is COVID-19<br/> affecting 
-                    our mental and emotional wellbeing?
-                </p>
+                <P> Your personal dream journal that reflects the mood benath your subconscious <br/>
+                </P>
                 <br/>
                 <FormContainer>
                     <Paper onSubmit={handleSubmit} component="form" className={classes.root}>
@@ -85,11 +85,12 @@ function Welcome(props) {
                             <ArrowForwardIosIcon />
                         </IconButton>
                     </Paper>
-                    <P>  {props.error}</P>
+                    <E>  {props.error}</E>
                 </FormContainer>
-                <Login>Been here before? Log in <Link style={{color: '#d3d3d3'}} to="/login">here</Link>.</Login>
+                <Login>Been here before? Log in <Link style={{color: 'white'}} to="/login">here</Link>.</Login>
             </ContentWrapper>
             <Footer>
+                Image background: Photo by <a style={{color: 'white'}} href="https://unsplash.com/@alanrobertjones?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alan Jones</a> on <a style={{color: 'white'}} href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
             </Footer>
         </Wrapper>
     )
@@ -113,8 +114,9 @@ export default connect(msp, mdp)(Welcome)
 
 const Header = styled.h1`
     text-align: center;
-    font-size: 30px;
-    margin: 10px;
+    font-size: 50px;
+    display: block;
+    margin: 0px;
 `
 
 const Login = styled.div`
@@ -123,11 +125,16 @@ const Login = styled.div`
 
 const P = styled.div`
     font-size: 20px;
+    margin: 20px;
+`
+
+const E = styled.div`
+    font-size: 20px;
     color: red;
     margin-top: 10px;
 `
 const ContentWrapper = styled.section`
-    width: 450px;
+    width: 500px;
     text-align: center;
 `
 
@@ -144,21 +151,22 @@ const Wrapper = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    padding-right: 10px;
-    background-image: url(${mountains}) ;
+    background-image: url(${dreamsky3}) ;
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
     height: 100%;
     width: 100%;
+    flex-wrap: wrap;
 `
 
 const Footer = styled.section`
-    align-self: center;
+    align-self: flex-end;
     position: absolute;
+    width: 350px;
     bottom: 20px;
-    color: white;
+    color: #808080;
+    font-size: 10px;
 `
 
 
