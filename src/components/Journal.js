@@ -14,7 +14,7 @@ function Journal(props) {
         const content = e.target.elements[0].value
         const zipcode = props.currentUser.zipcode
         props.addJournalEntry(content, zipcode, props.currentUser).then(() => {
-            props.currentUser.id ? props.history.push("/sentiment") : props.history.push("/sentiment")
+            props.currentUser.id ? props.history.push("/mood") : props.history.push("/mood")
         })
     }
 

@@ -9,8 +9,8 @@ function MenuBar(props) {
         <Wrapper>
             <Option><Link to="/dashboard" exact>Dashboard</Link></Option>
             <Option><Link to="/journal" exact>Daily Journal</Link></Option>
-            <Option><Link to="/history" exact>History</Link> </Option>
-            <Option><Link to="/sentiment" exact>View Sentiment</Link></Option>
+            {props.user.id !== "" && <Option><Link to="/history" exact>History</Link> </Option>}
+            <Option><Link to="/mood" exact>{props.user.id ===""? "Sign Up" : "View Mood"}</Link></Option>
             <Logout ><LogoutLink to="/" exact>{props.user.id ===""? "Home" : "Logout"}</LogoutLink></Logout>
       </Wrapper>
     )
@@ -55,6 +55,8 @@ const Link = styled(NavLink)`
 const LogoutLink = styled(NavLink)`
     color: white;
     text-decoration: none;
+    width: 100%;
+    text-align: center;
     &:visited {
         color: white;
     }

@@ -7,24 +7,38 @@ import History from '../components/History'
 import SentimentView from '../components/SentimentView'
 import styled from 'styled-components'
 import {connect} from 'react-redux';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { Redirect, Route, Switch} from 'react-router-dom';
 import {getRegionActionCreator} from '../actionCreators'
 
-class UserContainer extends React.Component {
+class UserContainer extends React.Component {   
+
+    componentDidUpdate(prevProps) {
+        if (this.props.user.id !== prevProps.user.id) {
+            console.log(this.props.user)
+        }
+    }
 
     render() {
+        console.log(this.props.user)
         return (
             <Wrapper>
                 <Switch>
                     <Route exact path ="/" render={ (props) => <Welcome {...props} /> } /> 
                     <Route exact path='/login' render={ () =><UserLogin /> } />
-                    <Route exact path = '/dashboard' render={ (props) =><Dashboard {...props} /> }  />
-                    <Route exact path='/journal' render={(props) => <Journal {...props}/>} />
-                    <Route exact path = '/sentiment' render={ (props) =><SentimentView  {...props} /> }  />
-                    <Route exact path = '/history' render={ (props) =><History {...props} /> }  />
+                    {this.props.user.zipcode!==""? <Route exact path = '/dashboard' render={ (props) =><Dashboard {...props} /> }  /> : <Redirect to="/" /> }
+                    {this.props.user.zipcode!==""? <Route exact path='/journal' render={(props) => <Journal {...props}/>} /> : <Redirect to="/" /> }
+                    {this.props.user.zipcode!==""? <Route exact path = '/mood' render={(props) => <SentimentView {...props}/>} /> : <Redirect to="/" />}
+                    {this.props.user.id!==""? <Route exact path = '/history' render={ (props) =><History {...props} /> }  /> : <Redirect to="/" />}
                 </Switch>
             </Wrapper>
         )
+    }
+}
+
+
+const msp = state => {
+    return {
+        user: state.user.currentUser
     }
 }
 
@@ -34,7 +48,7 @@ const mdp = dispatch => {
     }
 }
 
-export default connect(null, mdp)(UserContainer)
+export default connect(msp, mdp)(UserContainer)
 
 const Wrapper = styled.section`
     height: 100%;

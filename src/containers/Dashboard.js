@@ -12,15 +12,16 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         this.props.getAllJournalEntries()
-        if (this.props.currentUser.id !== "") {
-            this.props.getMyJournalEntries(this.props.currentUser.id)
+        console.log(this.props.user)
+        if (this.props.user.id !== "") {
+            this.props.getMyJournalEntries(this.props.user.id)
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.currentUser.id !== prevProps.currentUser.id) {
-            if (this.props.currentUser.id !== "") {
-                this.props.getMyJournalEntries(this.props.currentUser.id)
+        if (this.props.user.id !== prevProps.user.id) {
+            if (this.props.user.id !== "") {
+                this.props.getMyJournalEntries(this.props.user.id)
             }
         }
     }
@@ -64,11 +65,11 @@ class Dashboard extends React.Component {
         //My Data
         // const lastJournalEntrySentiment = this.props.location.state? this.props.location.state.sentiment : "N/A"
         let lastJournalEntrySentiment = "N/A";
-        if (this.props.currentUser.id!=="") {
+        if (this.props.user.id!=="") {
             lastJournalEntrySentiment = myJournalEntriesLoaded? this.props.myJournalEntries.slice(0)[0].sentiment.toFixed(5) : this.props.currentJournalEntry.sentiment.toFixed(5)
         }
-        const myWeeklyJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.props.myJournalEntries, "weekly") : "N/A"
-        const myAllTimeJournalEntryAverage = this.props.currentUser.id!==""? this.getAverage(this.props.myJournalEntries, "all time"): "N/A"
+        const myWeeklyJournalEntryAverage = this.props.user.id!==""? this.getAverage(this.props.myJournalEntries, "weekly") : "N/A"
+        const myAllTimeJournalEntryAverage = this.props.user.id!==""? this.getAverage(this.props.myJournalEntries, "all time"): "N/A"
 
         //Global data
         const dailyJournalEntryAverage = this.getAverage(this.props.allJournalEntries, "daily")
@@ -77,7 +78,7 @@ class Dashboard extends React.Component {
                
         //Location data 
 
-        const myRegionJournalEntries = this.props.allJournalEntries.filter(journalEntry => this.getRegion(journalEntry.zipcode).then(region => region === this.props.region))
+        const myRegionJournalEntries = this.props.allJournalEntries.filter(journalEntry => journalEntry.zipcode && this.getRegion(journalEntry.zipcode).then(region => region === this.props.region))
 
         const dailyRegionJournalEntryAverage = this.getAverage(myRegionJournalEntries, "daily")
         const weeklyRegionJournalEntryAverage = this.getAverage(myRegionJournalEntries, "weekly")
@@ -153,7 +154,7 @@ class Dashboard extends React.Component {
 
 const msp = state => {
     return {
-        currentUser: state.user.currentUser,
+        user: state.user.currentUser,
         region: state.user.region,
         currentJournalEntry: state.journal.currentJournalEntry,
         myJournalEntries: state.journal.myJournalEntries,

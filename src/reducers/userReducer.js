@@ -2,7 +2,7 @@
 const initialState = {
     loading: false,
     error: null,
-    region: "Everywhere",
+    region: "",
     currentUser: {
         id: "",
         email: "",

@@ -70,7 +70,7 @@ function SentimentView(props) {
 
             {props.user.id !== "" && <MenuBar />}
             <Top>
-                <Header><strong>Your Sentiment Score is <Num>{sentiment.toFixed(5)}</Num> with magnitude of <Num>{props.currentJournalEntry.magnitude.toFixed(5)}</Num>.</strong></Header>
+                <Header><strong>Your Mood Score is <Num>{sentiment.toFixed(5)}</Num> with magnitude of <Num>{props.currentJournalEntry.magnitude.toFixed(5)}</Num>.</strong></Header>
                 <br></br>
                 <div style={{width: "600px"}}>
                     <Slider disabled
@@ -97,10 +97,10 @@ function SentimentView(props) {
             </Top>
             <Bottom>
                 <BottomContentWrapper>
-                    <Para>For more info on the sentiment analysis, go to  <a href="https://cloud.google.com/natural-language">Google's Cloud Natural Language API.</a> </Para>
+                    <Para>For more info on the analysis of mood, go to  <a href="https://cloud.google.com/natural-language">Google's Cloud Natural Language API.</a> </Para>
                     {props.user.id !== ""? <DashboardButton onClick={() => props.history.push("/dashboard", {sentiment})}>Continue to Dashboard</DashboardButton> : null}
                     <SignUpBlock display={props.user.id === ""}>
-                        <Para>Our tool is most helpful when you can track your sentiment over time.<br/>To return and journal again, sign up for an account below:</Para>
+                        <Para>Our tool is most helpful when you can track your mood over time.<br/>To return and journal again, sign up for an account below:</Para>
                         <UserSignup sentiment={sentiment} />
                         <br/>
                         <Link to="/dashboard">Skip for now and view triends >></Link>
