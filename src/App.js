@@ -13,6 +13,7 @@ class App extends React.Component {
     const token = localStorage.token
     if (token){
       fetch("https://dreamscore-api.herokuapp.com/auto-login", {
+        mode: 'no-cors',
         headers: {
           "Authorization": token
         }
