@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "clamp-js": "^0.7.0",
+    "cors": "^2.8.5",
     "igniteui-react-core": "^16.11.7",
     "igniteui-react-gauges": "^16.11.7",
     "iplocation": "^7.0.0",
