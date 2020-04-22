@@ -5,7 +5,7 @@ const getUserActionCreator = (email, password) => dispatch => {
     
     dispatch(getUserStarted())
 
-    return fetch('http://localhost:3000/login', {
+    return fetch('https://dreamscore-api.herokuapp.com/login', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -44,7 +44,7 @@ const getUserFailed = (error) => {return {
 const signupUserActionCreator = userInfo => dispatch => {
     dispatch(signupUserStarted())
 
-    return fetch('http://localhost:3000/signup', {
+    return fetch('https://dreamscore-api.herokuapp.com/signup', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -132,7 +132,7 @@ const getRegionFailed = error => {
 const addJournalEntryActionCreator = (content, zipcode, user) => dispatch => {
     
     dispatch(addJournalEntryStarted())
-    return fetch('http://localhost:3000/journal-entries', {
+    return fetch('https://dreamscore-api.herokuapp.com/journal-entries', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -154,7 +154,7 @@ const addJournalEntry = journalEntry => ({
 })
 
 const updateJournalEntryRequest = (userId, journalEntryId) => dispatch => {
-    return fetch(`http://localhost:3000/journal-entries/${journalEntryId}`, {
+    return fetch(`https://dreamscore-api.herokuapp.com/journal-entries/${journalEntryId}`, {
         method: "PATCH",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -172,7 +172,7 @@ const updateJournalEntry = journalEntry => ({
 })
 
 const getMyJournalEntriesActionCreator = userId => dispatch => {
-    return fetch(`http://localhost:3000/users/${userId}/journal-entries`)
+    return fetch(`https://dreamscore-api.herokuapp.com/users/${userId}/journal-entries`)
     .then((res) => res.json())
     .then((myJournalEntries) => { 
         dispatch(getMyJournalEntries(myJournalEntries))
@@ -185,7 +185,7 @@ const getMyJournalEntries = journalEntries => ({
 })
 
 const getJournalEntriesActionCreator = () => dispatch => {
-    fetch('http://localhost:3000/journal-entries')
+    fetch('https://dreamscore-api.herokuapp.com/journal-entries')
     .then((res) => res.json())
     .then((allJournalEntries) => { 
         dispatch(getJournalEntries(allJournalEntries))
