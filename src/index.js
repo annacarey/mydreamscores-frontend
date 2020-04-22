@@ -7,6 +7,9 @@ import { Provider } from 'react-redux'
 import rootReducer from './reducers/rootReducer'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+var express = require('express')
+var cors = require('cors')
+var app = express()
 
 let store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -21,8 +24,15 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-app.use(cors());
-app.options('*', cors());
+app.use(cors())
+ 
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+ 
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 
 //store:
 //current_user, journal_entry array, current_survey, current_questions_array
