@@ -18,13 +18,13 @@ class UserSignup extends React.Component {
     handleSubmit = e => {
         e.preventDefault()
         this.props.signup(this.state)
-        .then(user => {
-            if (!user.error) {
-                this.props.updateJournalEntry(user.id, this.props.currentJournalEntry.id)
+        .then(response => {
+            if (!response.error) {
+                this.props.updateJournalEntry(response.user.id, this.props.currentJournalEntry.id)
+                localStorage.token = response.token
             }}) 
         .then(() => {
             if (this.props.user.id !=="") {
-                localStorage.userId = this.props.user.id
                 this.props.history.push("/dashboard", {sentiment: this.props.sentiment})
             }
         })

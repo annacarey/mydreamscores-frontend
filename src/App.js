@@ -10,11 +10,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 class App extends React.Component {
 
   componentDidMount() {
-    const userId = localStorage.userId
-    if (userId){
+    const token = localStorage.token
+    if (token){
       fetch("http://localhost:3000/auto-login", {
         headers: {
-          "Authorization": userId
+          "Authorization": token
         }
       })
       .then(res => res.json())

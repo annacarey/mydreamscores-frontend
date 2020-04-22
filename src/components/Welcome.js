@@ -22,6 +22,7 @@ function Welcome(props) {
         if (numChecker.test(zipcode)) {
             props.getRegion(zipcode).then(error => {   
                 if (error !== zipcodeError) {
+                    props.setError(null)
                     props.history.push("/journal")
                 }
             })

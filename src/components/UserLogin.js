@@ -11,9 +11,9 @@ function UserLogin(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        props.login(email, password).then((user) => {
-            if (!user.error) {
-                localStorage.userId = user.id
+        props.login(email, password).then(response => {
+            if (!response.error) {
+                localStorage.token = response.token
                 props.history.push('/dashboard')
             }
         })

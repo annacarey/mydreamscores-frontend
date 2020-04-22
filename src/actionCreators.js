@@ -16,13 +16,13 @@ const getUserActionCreator = (email, password) => dispatch => {
       .then((user => {
         return user
     }))
-    .then(user =>{  
-        if (user.error) {
-            dispatch(getUserFailed(user.error))
-            return user
+    .then(response =>{  
+        if (response.error) {
+            dispatch(getUserFailed(response.error))
+            return response
         } else {
-            dispatch(getUserSuccess(user))
-            return user
+            dispatch(getUserSuccess(response.user))
+            return response
     }})
 }
 
@@ -52,9 +52,9 @@ const signupUserActionCreator = userInfo => dispatch => {
             userInfo
         })
     }).then((response) => response.json())
-      .then((user) => {
-            user.error? dispatch(signupUserFailed(user.error)) : dispatch(signupUserSuccess(user))
-            return user
+      .then(response => {
+            response.error? dispatch(signupUserFailed(response.error)) : dispatch(signupUserSuccess(response.user))
+            return response
       })
 }
 
@@ -76,7 +76,7 @@ const signupUserFailed = errors => {
 })}
 
 const logoutUser = () => {
-    localStorage.removeItem("userId")
+    localStorage.removeItem("token")
     return ({
     type: 'LOGOUT_USER'})
 }
