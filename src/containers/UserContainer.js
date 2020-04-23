@@ -14,12 +14,11 @@ class UserContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.user.id !== prevProps.user.id) {
-            console.log(this.props.user)
+            
         }
     }
 
     render() {
-        console.log(this.props.user)
         return (
             <Wrapper>
                 <Switch>

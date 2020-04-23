@@ -170,6 +170,8 @@ const Footer = styled.section`
     bottom: 20px;
     color: #808080;
     font-size: 10px;
+    text-align: right;
+    padding-right: 20px;
 `
 
 

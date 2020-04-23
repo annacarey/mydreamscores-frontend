@@ -13,7 +13,6 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         this.props.getAllJournalEntries()
-        console.log(this.props.user)
         if (this.props.user.id !== "") {
             this.props.getMyJournalEntries(this.props.user.id)
         }

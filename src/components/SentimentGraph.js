@@ -24,7 +24,6 @@ function SentimentGraph(props) {
 
 
     // Map each journal entry to a data object and add to data array
-    console.log(props.allJournalEntries)
     let journalEntryData = []
     props.allJournalEntries.map(journalEntry => {
         const dataObject = {sentiment: journalEntry.sentiment, time: Date.parse(journalEntry.created_at), formatted_time: moment(Date.parse(journalEntry.created_at)).format('M/D/YY') }
