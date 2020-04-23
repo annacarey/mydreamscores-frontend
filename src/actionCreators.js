@@ -5,7 +5,7 @@ const getUserActionCreator = (email, password) => dispatch => {
     
     dispatch(getUserStarted())
 
-    return fetch('http://dreamscore-api.herokuapp.com/login', {
+    return fetch('https://dreamscore-api.herokuapp.com/login', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
