@@ -28,7 +28,7 @@ export default connect(msp)(MenuBar)
 const Option = styled.div`
     cursor: pointer;
     padding: 8px;
-    padding-left: 20px;
+    padding-left: 5px;
     padding-right: 20px;
     display: flex;
     align-items: center;
@@ -37,7 +37,7 @@ const Option = styled.div`
 
 const Wrapper = styled.div`
     display: flex;
-    font-size: 16px;
+    font-size: 12px;
     justify-content: flex-end;
 `
 
@@ -67,7 +67,7 @@ const Logout = styled.div`
     margin: 20px;
     margin-left: 5px;
     background-color: black;
-    width: 130px;
+    width: 100px;
     border-radius: 20px;
     padding: 8px;
     display: flex;

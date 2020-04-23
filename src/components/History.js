@@ -37,7 +37,7 @@ const mdp = dispatch => {
 }
 
 const Header = styled.h1`
-    font-size: 40px;
+    font-size: 30px;
     padding: 0 20px 0 30px;
     margin: 20 0 20 0;
 `

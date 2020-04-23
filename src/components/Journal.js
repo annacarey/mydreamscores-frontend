@@ -21,7 +21,7 @@ function Journal(props) {
     return (
         <Wrapper loading={props.loading}>
             <FormWrapper>
-                <TimerBlock><strong>Time Remaining:</strong> &ensp;
+                {/* <TimerBlock><strong>Time Remaining:</strong> &ensp;
                                 <div style={{color:'grey'}}>
                                 <strong>
                                 <Timer 
@@ -45,17 +45,18 @@ function Journal(props) {
                                 </Timer> 
                                 </strong>
                                 </div>
-                    </TimerBlock>
+                    </TimerBlock> */}
                 <Form onSubmit={handleSubmit}>
                 
-                    <Header>Write for two minutes about how you're feeling today...</Header>
+                    <Header>What was your dream last night? Describe as much as you can remember...</Header>
                     <TextArea 
                         rows={20}
                         disabled={timer===0}
                         loading={props.loading? 1 : undefined}
                     />
                     <br></br>
-                    {timer===0? <SubmitOn type="submit" className ='btn' disabled={false} value="View Sentiment Score" /> : <SubmitOff type="submit" className='btn' disabled={true} value="View Sentiment Score" />}
+                    <SubmitOn type="submit" disabled={false} value="View Sentiment Score" />
+                    {/* {timer===0? <SubmitOn type="submit" className ='btn' disabled={false} value="View Sentiment Score" /> : <SubmitOff type="submit" className='btn' disabled={true} value="View Sentiment Score" />} */}
                 </Form>
             </FormWrapper>
         </Wrapper>
@@ -86,7 +87,7 @@ const TimerBlock = styled.div`
 `
 
 const Header = styled.h1`
-    font-size: 20px;
+    font-size: 15px;
     margin: 0;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -97,21 +98,23 @@ const SubmitOff = styled.input`
     cursor: wait;
     background: #D3D3D3;
     color: #A9A9A9;
-    font-size: 16px;
+    font-size: 12px;
     border-radius: 10px;
     margin: 10px 10px 10px 0px;
-    width: 250px;
+    width: 160px;
     `
 
 const SubmitOn = styled.input`
     pointer-events: auto;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px;
     background-color: black;
     margin: 10px 10px 10px 0px;
     color: white;
     border-radius: 10px;
-    width: 250px;
+    padding: 10px;
+    border-style: none;
+    width: 160px;
     &:focus {
         outline: none;
     }
@@ -136,7 +139,6 @@ const Wrapper = styled.section`
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
     height: 100vh;
     width: 100vw;
     background-color: #F3F3F3;
@@ -147,7 +149,7 @@ const TextArea = styled.textarea`
     border-style: none;
     border-radius: 5px;
     padding: 10px;
-    font-size: 20px;
+    font-size: 15px;
     width: 100%;
     &:focus {
         outline: none;

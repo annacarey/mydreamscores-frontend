@@ -43,12 +43,14 @@ function Welcome(props) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: 400,
+          width: 275,
+          height: 35,
           borderRadius: 25,
           opacity: .6
         },
         input: {
             color: 'black',
+            fontSize: '12px',
             opacity: 1.0,
             '&&:placeholder': {
                 fontStyle: 'bold',
@@ -59,9 +61,9 @@ function Welcome(props) {
           flex: 1,
         },
         iconButton: {
-          padding: 10,
+          padding: 5,
           color: 'black',
-          width: 55,
+          width: 40,
         }
       }))
       const classes = useStyles();
@@ -114,27 +116,28 @@ export default connect(msp, mdp)(Welcome)
 
 const Header = styled.h1`
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
     display: block;
     margin: 0px;
 `
 
 const Login = styled.div`
-    padding-top: 50px;
+    padding-top: 30px;
+    font-size: 15px;
 `
 
 const P = styled.div`
-    font-size: 20px;
+    font-size: 15px;
     margin: 20px;
 `
 
 const E = styled.div`
-    font-size: 20px;
+    font-size: 12px;
     color: red;
     margin-top: 10px;
 `
 const ContentWrapper = styled.section`
-    width: 500px;
+    width: 375px;
     text-align: center;
 `
 

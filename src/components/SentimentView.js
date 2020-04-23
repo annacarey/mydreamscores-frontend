@@ -21,24 +21,27 @@ function SentimentView(props) {
     
     const useStyles = makeStyles({
         root: {
+            fontSize: 10,
             '&$disabled': {
               color: mediumColor
             },
         }, mark: {
-            height: 7,
+            height: 5,
             color: 'white',
-            width: 5
+            width: 4,
+            fontSize: 10
         }, markLabel: {
             color: 'black',
+            fontSize: 10
         },rail: {
-            height: 7,
+            height: 5,
             opacity: 1
         },thumb: {
             color: markerColor,
             backgroundColor: markerColor,
             '&$disabled': {
-                height: 30,
-                width: 30,
+                height: 25,
+                width: 25,
                 marginTop: -12,
                 marginLeft: -12,}
         },
@@ -74,7 +77,7 @@ function SentimentView(props) {
             <Top>
                 <Header><strong>Your Mood Score is <Num>{sentiment.toFixed(5)}</Num> with magnitude of <Num>{props.currentJournalEntry.magnitude.toFixed(5)}</Num>.</strong></Header>
                 <br></br>
-                <div style={{width: "600px"}}>
+                <div style={{width: "500px"}}>
                     <Slider disabled
                         className='Slider'
                         ValueLabelComponent={ValueLabelComponent}
@@ -126,11 +129,11 @@ export default connect(msp)(SentimentView)
 
 const DashboardButton = styled.button`
     padding: 10px;
-    width: 220px;
+    width: 180px;
     align-self: center;
     border-radius: 10px;
     border-style: none;
-    font-size: 16px;
+    font-size: 12px;
     margin: 10px 10px 10px 0px;
     background-color: black;
     color: white;
@@ -144,7 +147,7 @@ const Wrapper = styled.section`
     height: 100%;
     display: flex;
     flex-direction: column;
-    font-size: 16px;
+    font-size: 12px;
 `
 
 const Top = styled.section`
@@ -157,7 +160,7 @@ const Top = styled.section`
 `
 
 const Para = styled.p` 
-    margin-top: 50px;
+    margin-top: 20px;
 `
 
 const Num = styled.span`
@@ -165,7 +168,7 @@ const Num = styled.span`
 `
 
 const Header = styled.h3`
-    font-size: 30px;
+    font-size: 25px;
     color: grey;
 `
 

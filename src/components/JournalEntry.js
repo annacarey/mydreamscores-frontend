@@ -35,25 +35,25 @@ function JournalEntry(props) {
 }
 
 const Header = styled.h3`
-    font-size: 30px;
+    font-size: 20px;
     margin: 0;
     width: 100%;
     padding-bottom: 20px;
 `
 
 const Score = styled.div`
-    font-size: 40px;
+    font-size: 30px;
     margin: 0;
     position: absolute;
 `
 
 const Para = styled.p`
-    font-size: 14px;
+    font-size: 12px;
     margin: 0;
     text-align: justify;
 `
 const Para2 = styled.p`
-    font-size: 14px;
+    font-size: 12px;
     flex: 1;
     text-align: center;
     margin: 0;
@@ -65,7 +65,7 @@ const RightSection = styled.section`
     flex-direction: column;
     width: 65%;
     min-width: 250px;
-    padding-left: 40px;
+    padding-left: 20px;
 `
 const ScoreSection = styled.section`
     background-color: ${props => props.backgroundColor};
@@ -78,7 +78,7 @@ const ScoreSection = styled.section`
     border-radius: 10px;
     justify-content: center;
     align-items: center;
-    margin: 30px;
+    margin: 20px;
 `
 
 const LeftSection = styled.section`
@@ -94,10 +94,10 @@ const LeftSection = styled.section`
 const Card = styled.section`
     display: flex;
     flex-direction: row-reverse;
-    padding: 40px;
+    padding: 20px;
     width: 70vw;
     margin-left: 30px;
-    margin: 20px;
+    margin-top: 20px;
     background-color: white;
     border-radius: 5px;
     min-width: 600px;

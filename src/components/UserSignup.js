@@ -76,7 +76,7 @@ const Input = styled.input`
     padding: 10px;
     border-radius: 10px;
     border-style: none;
-    font-size: 16px;
+    font-size: 12px;
     margin: 10px 10px 10px 0px;
     &:focus {
         outline: none;
@@ -88,7 +88,7 @@ const Signup = styled.input`
     padding: 10px;
     border-radius: 10px;
     border-style: none;
-    font-size: 16px;
+    font-size: 12px;
     margin: 10px 10px 10px 0px;
     background-color: black;
     color: white;
@@ -98,7 +98,7 @@ const Signup = styled.input`
     }
 `
 const Form = styled.form`
-    margin-top: 40px;
+    margin-top: 20px;
     width: 100%;
 `
 const Checkbox = styled.div`

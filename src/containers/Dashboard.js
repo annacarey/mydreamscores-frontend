@@ -89,12 +89,12 @@ class Dashboard extends React.Component {
             <Wrapper>
                 <MenuBar/>
                 <CardWrapper>
-                    <Header><strong>Your Sentiment Dashboard</strong></Header>
+                    <Header><strong>Dream Dashboard</strong></Header>
                     <RowHeader>
-                        <h1>My Sentiment</h1>
+                        <h1>My Mood</h1>
                         
                     </RowHeader>
-                    <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
+                    <Divider style={{marginLeft: "30px", marginRight: "15%"}}/>
                     <Row>
                         <DataSection backgroundColor={coolColor}>
                             <DataHeader>Most Recent</DataHeader>
@@ -110,9 +110,9 @@ class Dashboard extends React.Component {
                         </DataSection>
                     </Row>
                     <RowHeader>
-                        <h1>Global Sentiment</h1>
+                        <h1>Global Mood</h1>
                     </RowHeader>
-                    <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
+                    <Divider style={{marginLeft: "30px", marginRight: "15%"}}/>
                     <Row >
                         <DataSection backgroundColor={mediumColor}>
                             <DataHeader>Daily Average</DataHeader>
@@ -128,9 +128,9 @@ class Dashboard extends React.Component {
                         </DataSection>
                     </Row>
                     <RowHeader>
-                        <h1>Regional Sentiment: {this.props.region}</h1>
+                        <h1>Regional Mood: {this.props.region}</h1>
                     </RowHeader>
-                    <Divider style={{marginLeft: "40px", marginRight: "15%"}}/>
+                    <Divider style={{marginLeft: "30px", marginRight: "15%"}}/>
                     <Row >
                         <Divider />
                         <DataSection backgroundColor={warmColor}>
@@ -175,7 +175,7 @@ export default withRouter(connect(msp, mdp)(Dashboard))
 const Header = styled.h1`
     font-size: 30px;
     width: 70%;
-    padding-left: 40px;
+    padding-left: 30px;
     padding-right: 15%;
 `
 const Wrapper = styled.div`
@@ -185,8 +185,9 @@ const Wrapper = styled.div`
 
 const RowHeader = styled.div`
     width: 70%;
-    padding-left: 40px;
+    padding-left: 30px;
     padding-right: 15%;
+    font-size: 20px
 `
 
 const CardWrapper = styled.section`
@@ -199,14 +200,14 @@ const CardWrapper = styled.section`
 
 const Row = styled.section`
     width: 70%;
-    padding-left: 40px;
+    padding-left: 30px;
     padding-right: 15%;
     display: flex;
 `
 
 const DataSection = styled.div`
-    height: 200px;
-    width: 300px;
+    height: 150px;
+    width: 225px;
     flex-shrink: 0;
     background-color: ${props => props.backgroundColor};
     display: flex;
@@ -219,14 +220,14 @@ const DataSection = styled.div`
 `
 
 const DataHeader = styled.div`
-    font-size: 20px;
+    font-size: 12px;
     align-self: flex-end;
     flex: 1;
     text-align: center;
 `  
 
 const DataBody = styled.div`
-    font-size: 40px;
+    font-size: 30px;
     position: absolute;
 `
 
