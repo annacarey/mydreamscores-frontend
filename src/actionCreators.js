@@ -5,7 +5,7 @@ const getUserActionCreator = (email, password) => dispatch => {
     
     dispatch(getUserStarted())
 
-    return fetch('https://dreamscore.herokuapp.com/login', {
+    return fetch('https://dreamscore-api.herokuapp.com/login', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -44,7 +44,7 @@ const getUserFailed = (error) => {return {
 const signupUserActionCreator = userInfo => dispatch => {
     dispatch(signupUserStarted())
 
-    return fetch('https://dreamscore.herokuapp.com/signup', {
+    return fetch('https://dreamscore-api.herokuapp.com/signup', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
