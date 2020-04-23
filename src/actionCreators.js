@@ -5,7 +5,7 @@ const getUserActionCreator = (email, password) => dispatch => {
     
     dispatch(getUserStarted())
 
-    return fetch('https://dreamscore-api.herokuapp.com/login', {
+    return fetch('http://dreamscore-api.herokuapp.com/login', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -44,7 +44,7 @@ const getUserFailed = (error) => {return {
 const signupUserActionCreator = userInfo => dispatch => {
     dispatch(signupUserStarted())
 
-    return fetch('https://dreamscore-api.herokuapp.com/signup', {
+    return fetch('http://dreamscore-api.herokuapp.com/signup', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -82,7 +82,7 @@ const logoutUser = () => {
 }
 
 const getRegionActionCreator = zipcode => dispatch => {
-    return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+    return fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
             const getData = (nestedObj, pathArr) => {
@@ -132,7 +132,7 @@ const getRegionFailed = error => {
 const addJournalEntryActionCreator = (content, zipcode, user) => dispatch => {
     
     dispatch(addJournalEntryStarted())
-    return fetch('https://dreamscore-api.herokuapp.com/journal-entries', {
+    return fetch('http://dreamscore-api.herokuapp.com/journal-entries', {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -154,7 +154,7 @@ const addJournalEntry = journalEntry => ({
 })
 
 const updateJournalEntryRequest = (userId, journalEntryId) => dispatch => {
-    return fetch(`https://dreamscore-api.herokuapp.com/journal-entries/${journalEntryId}`, {
+    return fetch(`http://dreamscore-api.herokuapp.com/journal-entries/${journalEntryId}`, {
         method: "PATCH",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -172,7 +172,7 @@ const updateJournalEntry = journalEntry => ({
 })
 
 const getMyJournalEntriesActionCreator = userId => dispatch => {
-    return fetch(`https://dreamscore-api.herokuapp.com/users/${userId}/journal-entries`)
+    return fetch(`http://dreamscore-api.herokuapp.com/users/${userId}/journal-entries`)
     .then((res) => res.json())
     .then((myJournalEntries) => { 
         dispatch(getMyJournalEntries(myJournalEntries))
@@ -185,7 +185,7 @@ const getMyJournalEntries = journalEntries => ({
 })
 
 const getJournalEntriesActionCreator = () => dispatch => {
-    fetch('https://dreamscore-api.herokuapp.com/journal-entries')
+    fetch('http://dreamscore-api.herokuapp.com/journal-entries')
     .then((res) => res.json())
     .then((allJournalEntries) => { 
         dispatch(getJournalEntries(allJournalEntries))
