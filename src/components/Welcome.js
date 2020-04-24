@@ -72,7 +72,7 @@ function Welcome(props) {
         <Wrapper>
             <Header>What's your DreamScore?</Header>
             <ContentWrapper>
-                <P> Your personal dream journal that reflects the mood benath your subconscious <br/>
+                <P> Your personal dream journal that reflects the mood beneath your subconscious <br/>
                 </P>
                 <br/>
                 <FormContainer>
