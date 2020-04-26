@@ -43,7 +43,6 @@ const getUserFailed = (error) => {return {
 
 // Sign up user
 const signupUserActionCreator = userInfo => dispatch => {
-    console.log("in signup action creator", userInfo)
     dispatch(signupUserStarted())
 
     return fetch(`${baseURL}signup`, {
@@ -55,7 +54,6 @@ const signupUserActionCreator = userInfo => dispatch => {
         })
     }).then((response) => response.json())
       .then(response => {
-            console.log("resonpose", response)
             response.error? dispatch(signupUserFailed(response.error)) : dispatch(signupUserSuccess(response.user))
             return response
       })
@@ -88,7 +86,6 @@ const getRegionActionCreator = zipcode => dispatch => {
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
-            console.log(locationData)
             const getData = (nestedObj, pathArr) => {
                 return pathArr.reduce((obj, key) =>
                     (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
@@ -105,7 +102,6 @@ const getRegionActionCreator = zipcode => dispatch => {
 }
 
 const setRegion = (region, zipcode) => {
-    console.log(region, zipcode)
     return ({
         type: 'SET_REGION',
         payload: {region: region, zipcode: zipcode}
@@ -128,7 +124,6 @@ const getRegionFailed = error => {
 
 const addJournalEntryActionCreator = (content, zipcode, region, user) => dispatch => {
     dispatch(addJournalEntryStarted())
-    console.log('in action creator', user)
     return fetch(`${baseURL}journal-entries`, {
         method: "POST",
         headers: {'content-type': 'application/json',

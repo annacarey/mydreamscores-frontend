@@ -7,8 +7,6 @@ import { withRouter } from "react-router-dom";
 
 function Journal(props) {
 
-    console.log(props.user)
-
     // const [timer, setTimer] = useState(3000);
 
     const handleSubmit = (e) => {

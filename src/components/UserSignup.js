@@ -32,7 +32,6 @@ class UserSignup extends React.Component {
     }
 
     render() {
-        console.log(this.props.user)
 
         return (
             <Form autocomplete = "off" onSubmit = {this.handleSubmit}>

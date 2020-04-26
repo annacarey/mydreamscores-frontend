@@ -20,7 +20,6 @@ class Dashboard extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.user.id !== prevProps.user.id) {
-            console.log("component did update in dashboard")
             if (this.props.user.id !== "") {
                 this.props.getMyJournalEntries(this.props.user.id)
             }
@@ -52,7 +51,6 @@ class Dashboard extends React.Component {
     }
 
     getRegion = (zipcode) =>{
-        console.log('region in dashboard')
         return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
@@ -61,8 +59,6 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        console.log("in dashboard", this.props.currentJournalEntry)
-        console.log(this.props.myJournalEntries)
         // Check to make sure user has journal entries loaded
         const myJournalEntriesLoaded = this.props.myJournalEntries.length !== 0
 
