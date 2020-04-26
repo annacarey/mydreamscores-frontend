@@ -11,8 +11,13 @@ import MenuBar from './MenuBar'
 import {coolColor, warmColor, mediumColor} from '../helpers/colors'
 
 function SentimentView(props) {
+    console.log(props)
+    console.log(props.myJournalEntries)
 
-    const sentiment = props.currentJournalEntry.sentiment
+    let sentiment = 0
+    if (props.myJournalEntries!==[]) {
+        sentiment = props.currentJournalEntry.sentiment ===0? props.myJournalEntries.slice(0)[0].sentiment : props.currentJournalEntry.sentiment
+    }
     const markerColor = sentiment >=0? coolColor : warmColor
 
     const marks = [ {value: -1, label: 'Negative (-1)'}, {value: -0.8,},
@@ -98,11 +103,10 @@ function SentimentView(props) {
                         valueLabelDisplay="on"
                     ></Slider>
                 </div>
-                
+                <MoodPara>Mood is calculcated using <a  target="_blank" href="https://cloud.google.com/natural-language">Google's Natural Language API</a>, which uses machine learning to identify the prevailing emotional attitude within text. Your mood is expressed by a score between -1 (negative) and 1 (positive) and magnitude, which indicates the overall strength of emotion.</MoodPara>
             </Top>
             <Bottom>
                 <BottomContentWrapper>
-                    <Para>For more info on the analysis of mood, go to  <a href="https://cloud.google.com/natural-language">Google's Cloud Natural Language API.</a> </Para>
                     {props.user.id !== ""? <DashboardButton onClick={() => props.history.push("/dashboard", {sentiment})}>Continue to Dashboard</DashboardButton> : null}
                     <SignUpBlock display={props.user.id === ""}>
                         <Para>Our tool is most helpful when you can track your mood over time.<br/>To return and journal again, sign up for an account below:</Para>
@@ -120,7 +124,8 @@ function SentimentView(props) {
 const msp = state => {
     return {
         currentJournalEntry: state.journal.currentJournalEntry,
-        user: state.user.currentUser
+        user: state.user.currentUser,
+        myJournalEntries: state.journal.myJournalEntries
     }
 }
 
@@ -148,19 +153,28 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: column;
     font-size: 12px;
+    justify-content: center;
 `
 
 const Top = styled.section`
-    width: 100%;
-    height: 33%;
+    width: 90%;
+    height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-self: center;
 `
 
 const Para = styled.p` 
     margin-top: 20px;
+`
+
+const MoodPara = styled.p` 
+    margin-top: 30px;
+    margin-bottom: 40px;
+    width: 70%;
+    text-align: center;
 `
 
 const Num = styled.span`
@@ -170,6 +184,7 @@ const Num = styled.span`
 const Header = styled.h3`
     font-size: 25px;
     color: grey;
+    text-align: center
 `
 
 const BottomContentWrapper = styled.section` 
@@ -178,9 +193,9 @@ const BottomContentWrapper = styled.section`
     flex-direction: column;
 `
 const Bottom = styled.div` 
-    height: 66%;
     background-color: #F3F3F3;
     width: 100%;
+    height: 50%;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;

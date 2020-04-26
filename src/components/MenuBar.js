@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
 import styled from 'styled-components'
-import { NavLink} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
+import {logoutUser} from '../actionCreators'
+
 
 function MenuBar(props) {
+
+    const handleClick = () => {
+        props.logout()
+        props.history.push('/')
+    }
 
     return (
         <Wrapper>
@@ -11,7 +18,7 @@ function MenuBar(props) {
             <Option><Link to="/journal" exact>Daily Journal</Link></Option>
             {props.user.id !== "" && <Option><Link to="/history" exact>History</Link> </Option>}
             <Option><Link to="/mood" exact>{props.user.id ===""? "Sign Up" : "View Mood"}</Link></Option>
-            <Logout ><LogoutLink to="/" exact>{props.user.id ===""? "Home" : "Logout"}</LogoutLink></Logout>
+            <Logout ><LogoutLink onClick ={handleClick}>{props.user.id ===""? "Home" : "Logout"}</LogoutLink></Logout>
       </Wrapper>
     )
 }
@@ -22,8 +29,14 @@ const msp = state => {
     }
 }
 
-export default connect(msp)(MenuBar)
 
+const mdp = dispatch =>{
+    return {
+        logout: () => dispatch(logoutUser())
+    }
+}
+
+export default withRouter(connect(msp, mdp)(MenuBar))
 
 const Option = styled.div`
     cursor: pointer;
@@ -52,15 +65,31 @@ const Link = styled(NavLink)`
         color: #A9A9A9;
     }
 `
-const LogoutLink = styled(NavLink)`
+const LogoutLink = styled.button`
     color: white;
     text-decoration: none;
     width: 100%;
+    font-size: 12px;
     text-align: center;
+    border-radius: 0px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
     &:visited {
         color: white;
     }
 `
+
+// padding: 5px;
+// width: 100px;
+// border-radius: 10px;
+// border-style: none;
+// font-size: 16px;
+// margin: 10px 10px 0 0px;
+// background-color: black;
+// color: white;
+// cursor: pointer;
 
 const Logout = styled.div`
     cursor: pointer;

@@ -5,8 +5,8 @@ import {setError, getUserSuccess} from './actionCreators'
 import {connect} from 'react-redux';
 import './App.css';
 import {baseURL} from './helpers/baseUrl'
+import { withRouter } from "react-router-dom";
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -24,6 +24,7 @@ class App extends React.Component {
           this.props.setError(user.errors)
         } else {
           this.props.login(user)
+          this.props.history.push('/dashboard')
         }
       })
     }
@@ -32,9 +33,7 @@ class App extends React.Component {
   render() {
     return (
       <Wrapper>
-        <Router >
           <UserContainer />
-        </Router>
       </Wrapper>
     );
   }
@@ -46,7 +45,7 @@ const mdp = dispatch => {
     login: user => dispatch(getUserSuccess(user))
   }
 }
-export default connect(null, mdp)(App);
+export default withRouter(connect(null, mdp)(App))
 
 const Wrapper = styled.section`
     height: 100vh;

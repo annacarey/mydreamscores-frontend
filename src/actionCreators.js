@@ -86,6 +86,7 @@ const getRegionActionCreator = zipcode => dispatch => {
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
+            console.log(locationData)
             const getData = (nestedObj, pathArr) => {
                 return pathArr.reduce((obj, key) =>
                     (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);

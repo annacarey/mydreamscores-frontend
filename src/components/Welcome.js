@@ -33,9 +33,9 @@ function Welcome(props) {
         }
     }
     
-    useEffect(() => {
-        props.logout()
-    }, [])
+    // useEffect(() => {
+    //     props.logout()
+    // }, [])
 
     const useStyles = makeStyles(theme => ({
         root: {

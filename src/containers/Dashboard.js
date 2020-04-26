@@ -87,6 +87,7 @@ class Dashboard extends React.Component {
         return (    
             <Wrapper>
                 <MenuBar/>
+                <ContentWrapper>
                 <CardWrapper>
                     <Header><strong>Dream Dashboard</strong></Header>
                     <RowHeader>
@@ -147,6 +148,7 @@ class Dashboard extends React.Component {
                     </Row>
                     {/* <Graph allJournalEntries={this.state.allJournalEntries} myJournalEntries={this.state.myJournalEntries}>text</Graph> */}
                 </CardWrapper>
+                </ContentWrapper>
             </Wrapper>
         )
     }
@@ -170,6 +172,12 @@ const mdp = dispatch => {
 
 export default withRouter(connect(msp, mdp)(Dashboard))
 
+const ContentWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
 const Header = styled.h1`
     font-size: 30px;
     width: 70%;
@@ -188,15 +196,18 @@ const RowHeader = styled.div`
     font-size: 20px
 `
 
-const CardWrapper = styled.section`
-    position: relative;
+const CardWrapper = styled.div`
     top: 20px;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    align-self: center;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
 `
 
-const Row = styled.section`
+const Row = styled.div`
     width: 70%;
     padding-left: 30px;
     padding-right: 15%;
