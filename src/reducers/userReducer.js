@@ -2,10 +2,10 @@
 const initialState = {
     loading: false,
     error: null,
-    region: "",
     currentUser: {
         id: "",
         email: "",
+        region: "",
         password: "",
         zipcode: "",
         phoneNumber: "",
@@ -29,10 +29,8 @@ function userReducer(state = initialState, action) {
             return {...state, loading: false, error: null, currentUser: action.payload.user}
         case 'SIGNUP_USER_FAILED':
             return {...state, loading: false, error: action.payload.errors }
-        case 'SET_ZIPCODE':
-            return {...state, currentUser: {...initialState.currentUser, zipcode: action.payload.zipcode}}
-        case 'GET_REGION':
-            return {...state, region: action.payload.region}
+        case 'SET_REGION':
+            return {...state, currentUser: {...initialState.currentUser, region: action.payload.region, zipcode: action.payload.zipcode}}
         case 'GET_REGION_FAILED':
             return {...state, error: action.payload.error}
         case 'SET_ERROR':

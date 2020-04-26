@@ -5,6 +5,7 @@ const initialState = {
     currentJournalEntry: {
         id: "",
         content: "",
+        region: "",
         zipcode: "",
         sentiment: 0,
         magnitude: 0

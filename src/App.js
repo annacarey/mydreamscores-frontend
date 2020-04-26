@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {setError, getUserSuccess} from './actionCreators'
 import {connect} from 'react-redux';
 import './App.css';
+import {baseURL} from './helpers/baseUrl'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ class App extends React.Component {
   componentDidMount() {
     const token = localStorage.token
     if (token){
-      fetch("https://dreamscore-api.herokuapp.com/auto-login", {
+      fetch(`${baseURL}auto-login`, {
         headers: {
           "Authorization": token
         }

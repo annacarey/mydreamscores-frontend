@@ -7,14 +7,17 @@ import { withRouter } from "react-router-dom";
 
 function Journal(props) {
 
-    const [timer, setTimer] = useState(3000);
+    console.log(props.user)
+
+    // const [timer, setTimer] = useState(3000);
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const content = e.target.elements[0].value
-        const zipcode = props.currentUser.zipcode
-        props.addJournalEntry(content, zipcode, props.currentUser).then(() => {
-            props.currentUser.id ? props.history.push("/mood") : props.history.push("/mood")
+        const zipcode = props.user.zipcode
+        const region = props.region
+        props.addJournalEntry(content, zipcode, region, props.user).then(() => {
+            props.user.id ? props.history.push("/mood") : props.history.push("/mood")
         })
     }
 
@@ -51,7 +54,7 @@ function Journal(props) {
                     <Header>What was your dream last night? Describe as much as you can remember...</Header>
                     <TextArea 
                         rows={20}
-                        disabled={timer===0}
+                        // disabled={timer===0}
                         loading={props.loading? 1 : undefined}
                     />
                     <br></br>
@@ -66,20 +69,20 @@ function Journal(props) {
 
 const msp = state => {
     return {
-        currentUser: state.user.currentUser,
-        region: state.user.region,
+        user: state.user.currentUser,
+        region: state.user.currentUser.region,
         loading: state.journal.loading
     }
 }
 
 const mdp = dispatch => {
     return {
-        addJournalEntry: (content, zipcode, user) => dispatch(addJournalEntryActionCreator(content, zipcode, user))
+        addJournalEntry: (content, zipcode, region, user) => dispatch(addJournalEntryActionCreator(content, zipcode, region, user))
     }
 }
 
 const TimerBlock = styled.div` 
-    margin: 0;
+    margin: 0;b
     padding-bottom: 60px;
     padding-top: 20px;
     font-size: 30px;

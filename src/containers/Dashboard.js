@@ -20,6 +20,7 @@ class Dashboard extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.user.id !== prevProps.user.id) {
+            console.log("component did update in dashboard")
             if (this.props.user.id !== "") {
                 this.props.getMyJournalEntries(this.props.user.id)
             }
@@ -51,6 +52,7 @@ class Dashboard extends React.Component {
     }
 
     getRegion = (zipcode) =>{
+        console.log('region in dashboard')
         return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
@@ -58,7 +60,9 @@ class Dashboard extends React.Component {
         })
     }
 
-    render() { 
+    render() {
+        console.log("in dashboard", this.props.currentJournalEntry)
+        console.log(this.props.myJournalEntries)
         // Check to make sure user has journal entries loaded
         const myJournalEntriesLoaded = this.props.myJournalEntries.length !== 0
 
@@ -78,7 +82,7 @@ class Dashboard extends React.Component {
                
         //Location data 
 
-        const myRegionJournalEntries = this.props.allJournalEntries.filter(journalEntry => journalEntry.zipcode && this.getRegion(journalEntry.zipcode).then(region => region === this.props.region))
+        const myRegionJournalEntries = this.props.allJournalEntries.filter(journalEntry => journalEntry.region === this.props.user.region)
 
         const dailyRegionJournalEntryAverage = this.getAverage(myRegionJournalEntries, "daily")
         const weeklyRegionJournalEntryAverage = this.getAverage(myRegionJournalEntries, "weekly")
@@ -127,7 +131,7 @@ class Dashboard extends React.Component {
                         </DataSection>
                     </Row>
                     <RowHeader>
-                        <h1>Regional Mood: {this.props.region}</h1>
+                        <h1>Regional Mood: {this.props.user.region}</h1>
                     </RowHeader>
                     <Divider style={{marginLeft: "30px", marginRight: "15%"}}/>
                     <Row >
@@ -155,7 +159,6 @@ class Dashboard extends React.Component {
 const msp = state => {
     return {
         user: state.user.currentUser,
-        region: state.user.region,
         currentJournalEntry: state.journal.currentJournalEntry,
         myJournalEntries: state.journal.myJournalEntries,
         allJournalEntries: state.journal.allJournalEntries

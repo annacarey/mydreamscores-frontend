@@ -10,6 +10,7 @@ class UserSignup extends React.Component {
         email: "",
         phoneNumber: "",
         password: "",
+        region: this.props.user.region,
         passwordConfirmation: "",
         okToContact: false,
         zipcode: this.props.user.zipcode
@@ -31,6 +32,7 @@ class UserSignup extends React.Component {
     }
 
     render() {
+        console.log(this.props.user)
 
         return (
             <Form autocomplete = "off" onSubmit = {this.handleSubmit}>

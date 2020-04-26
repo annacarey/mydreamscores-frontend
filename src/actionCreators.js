@@ -1,11 +1,12 @@
 import {error as zipcodeError} from './helpers/error'
+import {baseURL} from './helpers/baseUrl'
 
 // Log in user
 const getUserActionCreator = (email, password) => dispatch => {
     
     dispatch(getUserStarted())
 
-    return fetch('https://dreamscore-api.herokuapp.com/login', {
+    return fetch(`${baseURL}login`, {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -42,9 +43,10 @@ const getUserFailed = (error) => {return {
 
 // Sign up user
 const signupUserActionCreator = userInfo => dispatch => {
+    console.log("in signup action creator", userInfo)
     dispatch(signupUserStarted())
 
-    return fetch('https://dreamscore-api.herokuapp.com/signup', {
+    return fetch(`${baseURL}signup`, {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -53,6 +55,7 @@ const signupUserActionCreator = userInfo => dispatch => {
         })
     }).then((response) => response.json())
       .then(response => {
+            console.log("resonpose", response)
             response.error? dispatch(signupUserFailed(response.error)) : dispatch(signupUserSuccess(response.user))
             return response
       })
@@ -85,14 +88,14 @@ const getRegionActionCreator = zipcode => dispatch => {
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
+            console.log(locationData)
             const getData = (nestedObj, pathArr) => {
                 return pathArr.reduce((obj, key) =>
                     (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
             }
             const region = getData(locationData, ["results", 0, "address_components", 2, "long_name"]) === undefined? zipcodeError : getData(locationData, ["results", 0, "address_components", 2, "long_name"])
             if (region !== zipcodeError) {
-                dispatch(getRegion(locationData["results"][0]["address_components"][2]["long_name"]))
-                dispatch(setZipcode(zipcode))
+                dispatch(setRegion(locationData["results"][0]["address_components"][2]["long_name"], zipcode))
                 return region
             } else {
                 dispatch(getRegionFailed(region))
@@ -101,17 +104,11 @@ const getRegionActionCreator = zipcode => dispatch => {
         })
 }
 
-const getRegion = region => {
+const setRegion = (region, zipcode) => {
+    console.log(region, zipcode)
     return ({
-        type: 'GET_REGION',
-        payload: {region}
-    })
-}
-
-const setZipcode = zipcode => {
-    return ({
-        type: 'SET_ZIPCODE',
-        payload: {zipcode}
+        type: 'SET_REGION',
+        payload: {region: region, zipcode: zipcode}
     })
 }
 
@@ -129,14 +126,14 @@ const getRegionFailed = error => {
     })
 }
 
-const addJournalEntryActionCreator = (content, zipcode, user) => dispatch => {
-    
+const addJournalEntryActionCreator = (content, zipcode, region, user) => dispatch => {
     dispatch(addJournalEntryStarted())
-    return fetch('https://dreamscore-api.herokuapp.com/journal-entries', {
+    console.log('in action creator', user)
+    return fetch(`${baseURL}journal-entries`, {
         method: "POST",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
-        body: JSON.stringify({ content, zipcode, user
+        body: JSON.stringify({ content, zipcode, region, user
         })
         }).then((response) => response.json())
         .then((journalEntry) => {
@@ -154,7 +151,7 @@ const addJournalEntry = journalEntry => ({
 })
 
 const updateJournalEntryRequest = (userId, journalEntryId) => dispatch => {
-    return fetch(`https://dreamscore-api.herokuapp.com/journal-entries/${journalEntryId}`, {
+    return fetch(`${baseURL}journal-entries/${journalEntryId}`, {
         method: "PATCH",
         headers: {'content-type': 'application/json',
             'accept': 'application/json'},
@@ -172,7 +169,7 @@ const updateJournalEntry = journalEntry => ({
 })
 
 const getMyJournalEntriesActionCreator = userId => dispatch => {
-    return fetch(`https://dreamscore-api.herokuapp.com/users/${userId}/journal-entries`)
+    return fetch(`${baseURL}users/${userId}/journal-entries`)
     .then((res) => res.json())
     .then((myJournalEntries) => { 
         dispatch(getMyJournalEntries(myJournalEntries))
@@ -185,7 +182,7 @@ const getMyJournalEntries = journalEntries => ({
 })
 
 const getJournalEntriesActionCreator = () => dispatch => {
-    fetch('https://dreamscore-api.herokuapp.com/journal-entries')
+    fetch(`${baseURL}journal-entries`)
     .then((res) => res.json())
     .then((allJournalEntries) => { 
         dispatch(getJournalEntries(allJournalEntries))
