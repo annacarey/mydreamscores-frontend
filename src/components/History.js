@@ -54,7 +54,7 @@ const Wrapper = styled.section`
     flex-direction: column;
     width: 100vw;
     background-color: #F3F3F3;
-    height: 100%;
+    min-height: 100%;
 `
 
 export default withRouter(connect(msp, mdp)(History))
