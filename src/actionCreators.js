@@ -83,6 +83,7 @@ const logoutUser = () => {
 }
 
 const getRegionActionCreator = zipcode => dispatch => {
+    console.log(baseURL)
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
         .then((res) => res.json())
         .then(locationData => {
