@@ -1,4 +1,4 @@
-#DreamScore ![logo](./public/icons/favicon-32x32.png "logo")
+# DreamScore ![logo](/public/icons/favicon-32x32.png "logo")
 
 DreamScore is your personal dream journal that allows you to track your mood by recording your daily dreams. The application allows you to write down your dream each morning and then feeds the text into Google’s Natural Language API, which uses machine learning to determine the emotional attitude of a text. Your entry is given a score (-1 as negative and +1 as positive) which shows your mood. The technologies I used include: React, Ruby on Rails, Redux, ActiveRecord, Google's Natural Language API, Google's Geocoding API, Heroku, Twilio, Bcrypt, JWT, and Chron Jobs.
 
