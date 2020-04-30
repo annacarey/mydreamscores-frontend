@@ -14,15 +14,15 @@ I started building this project in the very early days of the COVID-19 pandemic.
 Whether because of increased stress and anxiety, a response to a lack of stimuli during social isolation, or a just that people are sleeping more hours than normal, there is an undeniable connection between dreams and COVID-19. Beyond the pandemic, I am generally interested in how dreams reflect and predict our emotional and mental wellbeing, so I hope this project can help us track our mood both during and after the pandemic.
 
 #### Resources about Dreams and COVID:
-* [CNBC](https://www.cnbc.com/2020/04/03/why-youre-having-pandemic-related-nightmares-and-how-to-sleep-better.html)
+* [CNBC] (https://www.cnbc.com/2020/04/03/why-youre-having-pandemic-related-nightmares-and-how-to-sleep-better.html)
 * [Vox] (https://www.vox.com/the-goods/2020/4/9/21215312/quarantine-vivid-dreams-psychologist-q-and-a)
 * [Smithsonian Magazine] (https://www.smithsonianmag.com/smart-news/insomnia-and-vivid-dreams-rise-pandemic-anxiety-180974726/)
-* [Psychology Today](https://www.psychologytoday.com/us/blog/dreaming-in-the-digital-age/201705/keeping-dream-journal)
+* [Psychology Today] (https://www.psychologytoday.com/us/blog/dreaming-in-the-digital-age/201705/keeping-dream-journal)
 
 #### Resources about Dream Journaling:
 * [Psychology Today] (https://www.psychologytoday.com/us/blog/dreaming-in-the-digital-age/201705/keeping-dream-journal)
 * [Thrive Global] (https://thriveglobal.com/stories/5-reasons-why-you-should-keep-a-dream-journal/)
-* [Masterclass](https://www.masterclass.com/articles/how-to-keep-a-dream-journal#how-to-keep-a-dream-journal)
+* [Masterclass] (https://www.masterclass.com/articles/how-to-keep-a-dream-journal#how-to-keep-a-dream-journal)
 
 ## Reflections and Technologies
 
