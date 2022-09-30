@@ -27,7 +27,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "react-vertical-timeline": "^0.2.0",
-    "recharts": "^1.8.5",
+    "recharts": "^2.1.14",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.88.2",
